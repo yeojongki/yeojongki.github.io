@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>无缝滚动</title>
+  </head>
+  <style>
+    html,
+    body,
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    :root {
+      --fontColor: #fff;
+      --oddColor: darkcyan;
+      --evenColor: darkorange;
+      /* 每个marquee item的宽 */
+      --itemW: 100px;
+      /* 容器宽度为4*1个item的宽度 */
+      --containerW: 400px;
+      --containerH: 100px;
+      /* 内部宽度设为4*2个item的宽度 */
+      --innerW: 800px;
+    }
+    .marquee-container {
+      width: var(--containerW);
+      height: var(--containerH);
+      overflow: hidden;
+      margin: 100px auto;
+    }
+    .marquee-inner {
+      width: var(--innerW);
+      height: 100%;
+      animation: marquee linear 3s infinite;
+    }
+    .marquee-inner:hover {
+      animation-play-state: paused;
+    }
+    .marquee-item {
+      float: left;
+      text-align: center;
+      color: var(--fontColor);
+      width: var(--itemW);
+      line-height: var(--containerH);
+      background: var(--oddColor);
+      list-style: none;
+    }
+    .marquee-item:nth-child(even) {
+      background: var(--evenColor);
+    }
+    @keyframes marquee {
+      to {
+        transform: translateX(-50%);
+      }
+    }
+  </style>
+  <body>
+    <div class="marquee-container">
+      <ul class="marquee-inner">
+        <li class="marquee-item">1</li>
+        <li class="marquee-item">2</li>
+        <li class="marquee-item">3</li>
+        <li class="marquee-item">4</li>
+        <!-- 重复一遍元素节点 -->
+        <li class="marquee-item">1</li>
+        <li class="marquee-item">2</li>
+        <li class="marquee-item">3</li>
+        <li class="marquee-item">4</li>
+      </ul>
+    </div>
+  </body>
+</html>

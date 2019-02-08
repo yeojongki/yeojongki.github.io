@@ -1,0 +1,61 @@
+ul {
+  padding: 0;
+  margin: 0;
+}
+.modal.show {
+  display: block;
+}
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 0.7;
+}
+.modal-content {
+  z-index: 1000;
+}
+.box-shadow {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+}
+.msg-admin {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 3px 6px;
+  margin: 0 auto;
+  font-size: 12px;
+}
+#J_messages {
+  height: 600px;
+  overflow-y: scroll;
+  margin-bottom: 15px;
+}
+#J_messages::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: hsla(0, 0%, 100%, 0.7);
+}
+#J_messages::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(95, 95, 95, 0.3);
+  -webkit-transition: background-color 0.15s;
+  transition: background-color 0.15s;
+}
+#J_messages li .name,
+#J_messages li .time {
+  line-height: 20px;
+}
+#J_messages li .name {
+  color: blueviolet;
+}
+#J_messages li .time {
+  color: #999;
+}
+#J_messages li .content {
+  color: #333;
+  margin: 0;
+}

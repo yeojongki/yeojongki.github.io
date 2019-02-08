@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"
+    />
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <main class="container" id="root">
+      <div class="my-3 p-3 bg-white rounded box-shadow">
+        <h6 class="border-bottom border-gray pb-2 mb-0">欢迎来到聊天室</h6>
+        <!-- 消息列表 -->
+        <ul id="J_messages" ref="messages">
+          <template v-if="messages.length">
+            <li class="media text-muted pt-3" v-for="msg of messages">
+              <!-- 系统提示 -->
+              <template v-if="msg.type===1">
+                <p class="msg-admin">{{ msg.content }}</p>
+              </template>
+
+              <!-- 文字类型 -->
+              <template v-if="msg.type===2">
+                <img
+                  alt="32x32"
+                  class="mr-2 rounded"
+                  style="width: 32px; height: 32px;"
+                  src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_168ccb80f4c%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_168ccb80f4c%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2211.546875%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+                  data-holder-rendered="true"
+                />
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                  <strong class="name">@{{ msg.user }}</strong>
+                  <strong class="text-gray-dark">{{ msg.ctime }}</strong>
+                  <p class="content">{{ msg.content }}</p>
+                </div>
+              </template>
+            </li>
+          </template>
+        </ul>
+        <!-- 发送 -->
+        <form action="" class="container" @submit="sendMsg">
+          <div class="row">
+            <div class="col-sm-9">
+              <input v-model="send" autocomplete="off" class="form-control" />
+            </div>
+            <div class="col-sm-1">
+              <button class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- Modal -->
+      <div
+        class="modal"
+        :class="showModal?'show':''"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-mask"></div>
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">先创建你的用户名</h5>
+            </div>
+            <div class="modal-body">
+              <input ref="regInput" v-model="user" autocomplete="off" class="form-control" @keyup.enter="register" />
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" @click="register">创建</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const $ = q => document.querySelector(q);
+
+      // socket.io
+      const socket = io();
+
+      // 获取用户名
+      const username = localStorage.getItem('simple_chat_username');
+
+      // vue
+      const vm = new Vue({
+        el: '#root',
+        data: {
+          user: username,
+          showModal: username ? false : true,
+          messages: [],
+          send: ''
+        },
+        mounted: function() {
+          // input auto focus
+          if (this.showModal) {
+            this.$refs.regInput.focus();
+          } else {
+            // 进入聊天室提示事件
+            socket.emit('register', this.user);
+          }
+        },
+        methods: {
+          register() {
+            localStorage.setItem('simple_chat_username', this.user);
+            socket.emit('register', this.user);
+            this.showModal = false;
+          },
+          // 消息提交
+          sendMsg(e) {
+            e.preventDefault(); // prevents page reloading
+            let val = vm.send;
+            if (val) {
+              socket.emit('message', val);
+              // 清空消息
+              vm.send = '';
+            }
+            return false;
+          }
+        }
+      });
+
+      // 接受服务端消息
+      socket.on('message', msg => {
+        vm.messages.push(msg);
+        let $msgList = vm.$refs.messages;
+        vm.$nextTick(() => {
+          $msgList.scrollTop = $msgList.scrollHeight;
+        });
+      });
+    </script>
+  </body>
+</html>

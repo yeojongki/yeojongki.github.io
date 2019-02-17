@@ -1,18 +1,30 @@
 import Phaser from 'phaser'
+import config from '../config'
 
 export default class extends Phaser.Scene {
   constructor() {
     super({ key: 'Game' })
     this.score = 0
-    this.title = undefined
+    this.scoreSpr = undefined
     this.cat = null
     this.moneyGroup = null
     this.isTouch = false
   }
 
+  init() {
+    this.score = 0
+  }
+
   create() {
     // 背景
-    this.add.image(0, 0, 'bg').setOrigin(0)
+    let bg = this.add.image(0, 0, 'bg').setOrigin(0)
+    bg.displayWidth = config.width
+    bg.displayHeight = config.height
+
+    // 分数
+    this.scoreSpr = this.add.text(20, 20, `score: ${this.score}`, {
+      fontSize: '40px'
+    })
 
     // 添加主角
     this.cat = this.add.sprite(this.cameras.main.centerX, this.cameras.main.height * 0.91, 'cat').setInteractive()
@@ -31,7 +43,7 @@ export default class extends Phaser.Scene {
 
     // 开启定时器生成元宝
     this.time.addEvent({
-      delay: 1000,
+      delay: 500,
       repeat: -1,
       callbackScope: this,
       callback: this.createMoney
@@ -44,12 +56,10 @@ export default class extends Phaser.Scene {
       // 判断是否点中猫，点中才移动
       let x = e.position.x
       let centerW = this.cat.width / 2
-      console.log(x)
-      console.log(this.cat.width)
-      if (x - this.cat.x < centerW) {
+      if (x >= this.cat.x - centerW && x <= this.cat.x + centerW) {
         // 如果没超出屏幕
-        if (x <= centerW) x = centerW
-        if (x > this.cameras.main.width - centerW) x = this.cameras.main.width - centerW
+        if (x <= centerW) x = centerW // 最左侧
+        if (x > this.cameras.main.width - centerW) x = this.cameras.main.width - centerW // 最右侧
         this.cat.x = x
       }
     }
@@ -110,14 +120,14 @@ export default class extends Phaser.Scene {
     // 元宝类型
     const types = money.types
     const typesScoreMap = {
-      yb1: 'one',
-      yb2: 'three',
-      yb3: 'five'
+      yb1: { img: 'one', score: 1 },
+      yb2: { img: 'three', score: 3 },
+      yb3: { img: 'five', score: 5 }
     }
 
-    // 添加得分图片
-    if (!money.settedScore) {
-      let scoreSprite = this.add.image(money.x, money.y, typesScoreMap[types]).setAlpha(0)
+    // 添加得分图片 不为炸弹
+    if (!money.settedScore && types !== 'bomb') {
+      let scoreSprite = this.add.image(money.x, money.y, typesScoreMap[types].img).setAlpha(0)
       // 设置为已经设置过分数的状态
       money.settedScore = true
       this.setRatioSize(scoreSprite, money.width)
@@ -131,14 +141,31 @@ export default class extends Phaser.Scene {
       })
     }
 
-    // 播放音乐
+    // 播放碰撞音效
     if (!money.playedSound) {
+      // 加分处理
+      const handleScore = types => {
+        this.score += typesScoreMap[types].score
+        this.setScoreText(this.score)
+      }
       types === 'bomb'
-        ? this.sound.play('boom', { loop: false }) // 拾取到炸弹
-        : this.sound.play('addscore', { loop: false }) // 元宝
+        ? this.sound.play('boom', { loop: false }) && this.gameOver(this.score) // 拾取到炸弹
+        : this.sound.play('addscore', { loop: false }) && handleScore(types) // 元宝
       // 设置为播放过音乐
       money.playedSound = true
     }
+  }
+
+  /**
+   * 游戏结束 设置分数跳转场景
+   */
+  gameOver(score) {
+    // localstorage设置最高分数
+    let bestScore = localStorage.getItem(config.bestScoreKey) || this.score
+    if (+score >= +bestScore) {
+      localStorage.setItem(config.bestScoreKey, score)
+    }
+    this.scene.start('Over', { score: this.score, bestScore: localStorage.getItem(config.bestScoreKey) || 0 })
   }
 
   /**
@@ -153,7 +180,13 @@ export default class extends Phaser.Scene {
     spr.setSize(destW, destW / ratio)
   }
 
-  update() {
-    // this.mushroom.update()
+  /**
+   * 设置分数sprite的分数
+   * @param {String|Number} score
+   */
+  setScoreText(score) {
+    this.scoreSpr.setText(`score: ${score}`)
   }
+
+  update() {}
 }

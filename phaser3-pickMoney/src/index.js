@@ -1,11 +1,12 @@
 import Phaser from 'phaser'
-import { Boot, Game, Start } from 'scenes'
+import { Boot, Game, Start, Over } from 'scenes'
+import CONFIG from './config'
 
 const config = {
   type: Phaser.AUTO,
-  parent: 'container',
-  width: 590,
-  height: 1050,
+  parent: 'App',
+  width: CONFIG.width,
+  height: CONFIG.height,
   scale: {
     mode: Phaser.Scale.FIT
   },
@@ -13,12 +14,12 @@ const config = {
     default: 'arcade',
     arcade: {
       gravity: {
-        y: 300
+        y: 800
       },
       debug: false
     }
   },
-  scene: [Boot, Start, Game]
+  scene: [Boot, Start, Game, Over]
 }
 
 const game = new Phaser.Game(config) // eslint-disable-line no-unused-vars

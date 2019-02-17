@@ -9,7 +9,7 @@ const dirNode = path.join(__dirname, '../node_modules')
 const dirApp = path.join(__dirname, '../src')
 const dirAssets = path.join(__dirname, '../assets')
 
-const appHtmlTitle = 'Webpack4 Phaser3 Boilerplate'
+const appHtmlTitle = '元宝大作战'
 
 /**
  * Webpack Configuration
@@ -23,6 +23,9 @@ module.exports = {
     modules: [dirNode, dirApp, dirAssets]
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      Phaser: 'phaser'
+    }),
     new webpack.DefinePlugin({
       IS_DEV: IS_DEV,
       CANVAS_RENDERER: JSON.stringify(true),

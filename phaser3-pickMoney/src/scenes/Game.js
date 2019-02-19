@@ -58,7 +58,7 @@ export default class extends Phaser.Scene {
     if (this.countdown) {
       // 添加倒计时
       this.countdownSpr = this.add
-        .text(this.cameras.main.centerX, 40, `time: ${this.countdown}`, {
+        .text(this.cameras.main.centerX, 40, `time: ${this.countdown}s`, {
           fontSize: '50px'
         })
         .setOrigin(0.5)
@@ -70,7 +70,7 @@ export default class extends Phaser.Scene {
         callbackScope: this,
         callback: () => {
           this.countdown -= 1
-          this.countdownSpr.setText(`time: ${this.countdown}`)
+          this.countdownSpr.setText(`time: ${this.countdown}s`)
           // 时间到 结束游戏
           if (this.countdown <= 0) {
             this.gameOver()

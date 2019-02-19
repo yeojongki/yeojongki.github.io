@@ -9,9 +9,12 @@ export default class extends Phaser.Scene {
     this.cat = null
     this.moneyGroup = null
     this.isTouch = false
+    this.countdown = config.mode === 0 ? config.time : 0
+    this.countdownSpr = null
   }
 
   init() {
+    this.countdown = config.mode === 0 ? config.time : 0
     this.score = 0
   }
 
@@ -22,9 +25,11 @@ export default class extends Phaser.Scene {
     bg.displayHeight = config.height
 
     // 分数
-    this.scoreSpr = this.add.text(20, 20, `score: ${this.score}`, {
-      fontSize: '40px'
-    })
+    this.scoreSpr = this.add
+      .text(this.cameras.main.centerX, 90, `score: ${this.score}`, {
+        fontSize: '50px'
+      })
+      .setOrigin(0.5)
 
     // 添加主角
     this.cat = this.add.sprite(this.cameras.main.centerX, this.cameras.main.height * 0.91, 'cat').setInteractive()
@@ -48,6 +53,31 @@ export default class extends Phaser.Scene {
       callbackScope: this,
       callback: this.createMoney
     })
+
+    // 如果是倒计时模式
+    if (this.countdown) {
+      // 添加倒计时
+      this.countdownSpr = this.add
+        .text(this.cameras.main.centerX, 40, `time: ${this.countdown}`, {
+          fontSize: '50px'
+        })
+        .setOrigin(0.5)
+
+      // 开启时间倒计时
+      this.time.addEvent({
+        delay: 1000,
+        repeat: -1,
+        callbackScope: this,
+        callback: () => {
+          this.countdown -= 1
+          this.countdownSpr.setText(`time: ${this.countdown}`)
+          // 时间到 结束游戏
+          if (this.countdown <= 0) {
+            this.gameOver()
+          }
+        }
+      })
+    }
   }
 
   // 人物移动
@@ -149,7 +179,7 @@ export default class extends Phaser.Scene {
         this.setScoreText(this.score)
       }
       types === 'bomb'
-        ? this.sound.play('boom', { loop: false }) && this.gameOver(this.score) // 拾取到炸弹
+        ? this.sound.play('boom', { loop: false }) && this.gameOver() // 拾取到炸弹
         : this.sound.play('addscore', { loop: false }) && handleScore(types) // 元宝
       // 设置为播放过音乐
       money.playedSound = true
@@ -159,11 +189,11 @@ export default class extends Phaser.Scene {
   /**
    * 游戏结束 设置分数跳转场景
    */
-  gameOver(score) {
+  gameOver() {
     // localstorage设置最高分数
     let bestScore = localStorage.getItem(config.bestScoreKey) || this.score
-    if (+score >= +bestScore) {
-      localStorage.setItem(config.bestScoreKey, score)
+    if (+this.score >= +bestScore) {
+      localStorage.setItem(config.bestScoreKey, this.score)
     }
     this.scene.start('Over', { score: this.score, bestScore: localStorage.getItem(config.bestScoreKey) || 0 })
   }

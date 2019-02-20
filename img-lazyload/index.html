@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>img-lazyload</title>
+  </head>
+  <style>
+    .img-wrap img {
+      display: block;
+    }
+  </style>
+  <body>
+    <main class="img-wrap"></main>
+    <script>
+      /**
+       * img LazyLoad
+       * @param {HtmlElement} el 加载的元素
+       */
+      class LazyLoad {
+        constructor(el) {
+          this.imgs = [...document.querySelectorAll(el)]
+          this.winH = window.innerHeight
+          this.init()
+        }
+        init() {
+          this.scrollLoadImg()
+          this.bindEvent()
+        }
+
+        // 滚动加载图片
+        scrollLoadImg() {
+          this.imgs.forEach((img, index) => {
+            !img.getAttribute('data-loaded') && this.imgIsVisibleAndLoad(img, index)
+          })
+        }
+
+        // 判断图片是否在可视区域内
+        imgIsVisibleAndLoad(img, index) {
+          // 获取元素相对于文档顶部的距离 img.offsetParent为body
+          let top = img.offsetTop
+          // 浏览器已滚动高度
+          let scrollTop = document.documentElement.scrollTop
+          if (top - scrollTop < this.winH) {
+          // if (img.getBoundingClientRect().top <= this.winH) {
+            let src = img.getAttribute('data-src')
+            if (src) {
+              img.src = src
+              img.onload = function() {
+                this.setAttribute('data-loaded', true)
+              }
+            }
+          }
+        }
+
+        bindEvent() {
+          document.addEventListener('scroll', this.scrollLoadImg.bind(this))
+        }
+
+        destroy() {
+          document.addEventListener('scroll', this.scrollLoadImg.bind(this))
+        }
+      }
+
+      window.onload = () => {
+        for (let i = 0; i < 20; i++) {
+          let $img = document.createElement('img')
+          $img.src = 'http://iph.href.lu/200x200'
+          $img.setAttribute('data-src', `http://iph.href.lu/${parseInt(Math.random() * 500 + 10)}x200`)
+          document.querySelector('.img-wrap').appendChild($img)
+        }
+
+        new LazyLoad('img')
+      }
+    </script>
+  </body>
+</html>

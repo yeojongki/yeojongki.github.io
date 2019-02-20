@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="author" content="http://www.softwhy.com/" />
+    <title>蚂蚁部落</title>
+    <style type="text/css">
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+      body {
+        padding: 20px;
+        margin: 30px;
+      }
+      #box {
+        width: 300px;
+        height: 210px;
+        background: green;
+        margin: 20px;
+      }
+      #middle {
+        width: 200px;
+        height: 160px;
+        background: blue;
+        overflow: hidden;
+      }
+      #inner {
+        width: 50px;
+        height: 50px;
+        background: #ccc;
+        line-height: 50px;
+        margin: 80px;
+      }
+    </style>
+    <script>
+      window.onload = function() {
+        let inner = document.getElementById('inner')
+        inner.innerHTML = inner.offsetTop
+      }
+    </script>
+  </head>
+  <body>
+    <div id="box">
+      <div id="middle">
+        <div id="inner"></div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!-- 上述代码可以获取inner的offsetTop属性值。
+
+代码分析如下：
+
+（1）.inner没有具有定位的祖先元素，那么inner的offsetParent返回body元素。
+
+（2）.那么offsetTop属性返回值就是inner顶部距离body顶部的偏移量。
+
+（3）.offsetTop=80(inner.margin-top)+20(box.margin-top)+20(body.padding-top)+30(body.margin-top)。 -->

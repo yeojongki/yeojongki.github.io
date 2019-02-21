@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>css布局</title>
+  </head>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      color: aliceblue;
+      text-align: center;
+    }
+    section .title {
+      color: #333;
+    }
+    .container {
+      overflow: hidden;
+    }
+    .container .column {
+      /* 多列等高 */
+      padding-bottom: 10000px;
+      margin-bottom: -10000px;
+    }
+
+    /* 圣杯布局 */
+    #holyGrail {
+      /* 2x left-width + right-width 2x200+200*/
+      min-width: 600px;
+    }
+    #holyGrail header,
+    #holyGrail footer {
+      line-height: 30px;
+    }
+    #holyGrail header {
+      background: darkcyan;
+    }
+    #holyGrail footer {
+      background: palevioletred;
+    }
+    #holyGrail .container {
+      padding: 0 200px;
+      overflow: hidden;
+    }
+    #holyGrail .container .column {
+      float: left;
+    }
+    #holyGrail .center {
+      width: 100%;
+      background: darkorchid;
+    }
+    #holyGrail .right,
+    #holyGrail .left {
+      position: relative;
+      width: 200px;
+    }
+    #holyGrail .left {
+      margin-left: -100%;
+      left: -200px;
+      background: burlywood;
+    }
+    #holyGrail .right {
+      margin-left: -200px;
+      right: -200px;
+      background: red;
+    }
+
+    /* 左列定宽 右列自适应 */
+    #leftRight .container {
+      overflow: hidden;
+    }
+    #leftRight .left {
+      float: left;
+      width: 200px;
+      /* margin-right: -200px; */
+      background: deeppink;
+    }
+    #leftRight .right {
+      overflow: hidden;
+      /* float: left;
+      margin-left: 200px; */
+      background: deepskyblue;
+    }
+
+    /* 右列定宽 左列自适应  */
+    #rightLeft .left {
+      float: left;
+      background: darkorchid;
+      margin-right: 200px;
+    }
+    #rightLeft .right {
+      margin-left: -200px;
+      width: 200px;
+      float: left;
+      background: deepskyblue;
+    }
+  </style>
+  <body>
+    <!-- 左列定宽 右列自适应 -->
+    <section id="leftRight">
+      <h3 class="title">左列定宽 右列自适应</h3>
+      <div class="container">
+        <div class="left column">
+          左边内容左边内容左边内容左边内容左边内容左边内容左边内容左边内容左边内容左边内容左边内容左边内容左边内容左边内容左边内容左边内容左边内容左边内容
+        </div>
+        <div class="right column">
+          若浮动元素的块状兄弟元素为BFC，则不会占满一整行，而是根据浮动元素的宽度，占据该行剩下的宽度，避免与浮动元素重叠。
+        </div>
+      </div>
+    </section>
+
+    <!-- 左列定宽 右列自适应 -->
+    <section id="rightLeft">
+      <h3 class="title">右列定宽 左列自适应</h3>
+      <div class="container">
+        <div class="left column">
+          “伟大事业都始于梦想”“伟大事业都基于创新”“伟大事业都成于实干”，在热烈的掌声中，习近平发表重要讲话，为我国航天事业发展提供了根本遵循和前进方向。
+          一直以来，习近平高度重视我国航天事业发展，多次寄语航天界、航天人。央视网梳理有关妙言隽语，与大家一起学习。
+        </div>
+        <div class="right column">
+          右边内容右边内容右边内容右边内容右边内容右边内容右边内容右边内容右边内容右边内容右边内容右边内容右边内容右边内容右边内容右边内容右边内容右边内容
+        </div>
+      </div>
+    </section>
+
+    <!-- 圣杯布局 -->
+    <section id="holyGrail">
+      <h3 class="title">圣杯布局</h3>
+      <header>header</header>
+      <main class="container">
+        <div class="center column">
+          “伟大事业都始于梦想”“伟大事业都基于创新”“伟大事业都成于实干”，在热烈的掌声中，习近平发表重要讲话，为我国航天事业发展提供了根本遵循和前进方向。
+          一直以来，习近平高度重视我国航天事业发展，多次寄语航天界、航天人。央视网梳理有关妙言隽语，与大家一起学习。
+        </div>
+        <div class="left column">left</div>
+        <div class="right column">right</div>
+      </main>
+      <footer>footer</footer>
+    </section>
+  </body>
+</html>

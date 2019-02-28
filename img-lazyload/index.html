@@ -41,9 +41,9 @@
           // 获取元素相对于文档顶部的距离 img.offsetParent为body
           let top = img.offsetTop
           // 浏览器已滚动高度
-          let scrollTop = document.documentElement.scrollTop
-          if (top - scrollTop < this.winH) {
-          // if (img.getBoundingClientRect().top <= this.winH) {
+          // let scrollTop = document.documentElement.scrollTop
+          // if (top - scrollTop < this.winH) {
+          if (img.getBoundingClientRect().top <= this.winH) {
             let src = img.getAttribute('data-src')
             if (src) {
               img.src = src
@@ -63,14 +63,14 @@
         }
       }
 
-      window.onload = () => {
-        for (let i = 0; i < 20; i++) {
-          let $img = document.createElement('img')
-          $img.src = 'http://iph.href.lu/200x200'
-          $img.setAttribute('data-src', `http://iph.href.lu/${parseInt(Math.random() * 500 + 10)}x200`)
-          document.querySelector('.img-wrap').appendChild($img)
-        }
+      for (let i = 0; i < 20; i++) {
+        let $img = document.createElement('img')
+        $img.src = 'http://iph.href.lu/200x200'
+        $img.setAttribute('data-src', `http://iph.href.lu/${parseInt(Math.random() * 500 + 10)}x200`)
+        document.querySelector('.img-wrap').appendChild($img)
+      }
 
+      window.onload = () => {
         new LazyLoad('img')
       }
     </script>

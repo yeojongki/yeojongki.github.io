@@ -22,6 +22,8 @@
         constructor(el) {
           this.imgs = [...document.querySelectorAll(el)]
           this.winH = window.innerHeight
+          // bind this
+          this.scrollLoadImg = this.scrollLoadImg.bind(this)
           this.init()
         }
         init() {
@@ -38,6 +40,7 @@
 
         // 判断图片是否在可视区域内
         imgIsVisibleAndLoad(img, index) {
+          const self = this
           // 获取元素相对于文档顶部的距离 img.offsetParent为body
           let top = img.offsetTop
           // 浏览器已滚动高度
@@ -49,24 +52,30 @@
               img.src = src
               img.onload = function() {
                 this.setAttribute('data-loaded', true)
+                // 如果加载到最后一张图片，则移除监听
+                if (index === self.imgs.length - 1) {
+                  self.destroy()
+                }
               }
             }
           }
         }
 
         bindEvent() {
-          window.addEventListener('scroll', this.scrollLoadImg.bind(this))
+          window.addEventListener('scroll', this.scrollLoadImg)
         }
 
         destroy() {
-          window.addEventListener('scroll', this.scrollLoadImg.bind(this))
+          window.removeEventListener('scroll', this.scrollLoadImg)
         }
       }
 
+      // 初始化默认图片
+      const imgPrefix = '//iph.href.lu/'
       for (let i = 0; i < 20; i++) {
         let $img = document.createElement('img')
-        $img.src = 'http://iph.href.lu/200x200'
-        $img.setAttribute('data-src', `//iph.href.lu/${parseInt(Math.random() * 500 + 10)}x200`)
+        $img.src = `${imgPrefix}200x200`
+        $img.setAttribute('data-src', `${imgPrefix}${parseInt(Math.random() * 500 + 10)}x200`)
         document.querySelector('.img-wrap').appendChild($img)
       }
 

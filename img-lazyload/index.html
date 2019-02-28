@@ -55,18 +55,18 @@
         }
 
         bindEvent() {
-          document.addEventListener('scroll', this.scrollLoadImg.bind(this))
+          window.addEventListener('scroll', this.scrollLoadImg.bind(this))
         }
 
         destroy() {
-          document.addEventListener('scroll', this.scrollLoadImg.bind(this))
+          window.addEventListener('scroll', this.scrollLoadImg.bind(this))
         }
       }
 
       for (let i = 0; i < 20; i++) {
         let $img = document.createElement('img')
         $img.src = 'http://iph.href.lu/200x200'
-        $img.setAttribute('data-src', `http://iph.href.lu/${parseInt(Math.random() * 500 + 10)}x200`)
+        $img.setAttribute('data-src', `//iph.href.lu/${parseInt(Math.random() * 500 + 10)}x200`)
         document.querySelector('.img-wrap').appendChild($img)
       }
 

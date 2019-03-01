@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>vue-recursive-component</title>
+  </head>
+  <body>
+    <!-- 数据来源：https://juejin.im/post/5c790669e51d453eec65a952#heading-17 -->
+    <div id="app">
+      <category-list :list="list"></category-list>
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.6.6/vue.min.js"></script>
+    <script type="x-template" id="category-list">
+      <ul>
+        <li v-for="item of list" :key="item.title">
+          {{item.title}}
+          <ul v-if="item.children">
+            <!-- 递归组件 -->
+            <category-list :list="item.children"></category-list>
+          </ul>
+        </li>
+      </ul>
+    </script>
+
+    <script type="text/javascript">
+      Vue.component('category-list', {
+        template: '#category-list',
+        props: ['list']
+      });
+
+      var app = new Vue({
+        el: '#app',
+        component: {
+          'category-list': 'category-list'
+        },
+        data: {
+          list: [
+            {
+              title: '成人票',
+              children: [
+                {
+                  title: '成人三馆联票',
+                  children: [
+                    {
+                      title: '成人三馆联票 - 某一销售店'
+                    }
+                  ]
+                },
+                {
+                  title: '成人五馆联票'
+                }
+              ]
+            },
+            {
+              title: '儿童票'
+            },
+            {
+              title: '学生票'
+            },
+            {
+              title: '特惠票'
+            }
+          ]
+        }
+      });
+    </script>
+  </body>
+</html>

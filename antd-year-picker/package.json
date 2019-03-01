@@ -8,6 +8,7 @@
     "react-dom": "^16.8.3",
     "react-scripts": "2.1.5"
   },
+  "homepage": ".",
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",

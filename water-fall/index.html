@@ -146,8 +146,6 @@
           this.colHeight = Array(this.columns).fill(0)
           // 正在加载
           this.loading = false
-          // 是否初次加载
-          this.isFirst = true
           // 更新图片
           this.update()
         }
@@ -168,7 +166,6 @@
           allImgs.forEach((img, i) => {
             this.setImgPosition(img, i)
           })
-          this.isFirst && (this.isFirst = false)
           // toast
           UTILS.toggleToast()
           this.loading = false

@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
-import { DatePicker, Form, Button } from 'antd';
-// import Calendar from './Calendar';
+import { Form, Button } from 'antd';
+import YearPicker from './YearPicker';
 
 class App extends Component {
   state = {
     open: false,
     date: null
   };
-
   /**
    * datePicker change handler
    */
   handleChange = date => {
     this.setState({ open: false });
-    // this.setState({ date, open: false });
     this.props.form.setFieldsValue({ date });
   };
 
@@ -33,7 +31,6 @@ class App extends Component {
   };
 
   render() {
-    const { open } = this.state;
     const { getFieldDecorator, getFieldValue } = this.props.form;
     const date = getFieldValue('date');
     return (
@@ -41,12 +38,9 @@ class App extends Component {
         <Form layout='inline'>
           <Form.Item>
             {getFieldDecorator('date', {})(
-              <DatePicker
-                format='YYYY'
-                // value={date}
+              <YearPicker
+                open={this.state.open}
                 onOpenChange={this.handleOpenChange}
-                open={open}
-                mode='year'
                 onPanelChange={this.handleChange}
               />
             )}

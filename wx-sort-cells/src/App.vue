@@ -7,7 +7,7 @@
           :style="{backgroundImage:`url(${data.item.url})`}"
           @click="handleClick(data.item.url, id)"
         >
-          <button class="cell-item__del" @click="handleDelete(data.item.id)">×</button>
+          <button class="cell-item__del" @click.stop="handleDelete(data.item.id)">×</button>
         </div>
       </template>
     </SortCells>
@@ -57,12 +57,12 @@ export default {
   position: relative;
   width: 100px;
   height: 100px;
-  background: aquamarine;
   display: inline-block;
   margin: 0 10px 10px 0;
   background-repeat: no-repeat;
   background-size: contain;
   &__del {
+    outline: none;
     font-size: 16px;
     position: absolute;
     right: -10px;

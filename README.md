@@ -8,4 +8,4 @@
 - 使用 antd.DatePicker 创建一个 年份选择器 👉 https://yeojongki.github.io/antd-year-picker/build/
 - Vue 递归组件👉 https://yeojongki.github.io/vue-recursive-component/
 - 仿微信发布朋友圈拖拽排序图片 👉 https://yeojongki.github.io/wx-sort-cells/dist/
-- canvas刮刮卡 👉 https://yeojongki.github.io/canvas-scratch-card/index.html
+- canvas刮刮卡 (兼容PC和移动端) 👉 https://yeojongki.github.io/canvas-scratch-card/

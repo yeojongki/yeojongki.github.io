@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>刮刮卡</title>
+  </head>
+  <style>
+    .scratch-wrap {
+      position: relative;
+      width: 400px;
+      height: 200px;
+      border: 1px dashed #ccc;
+      user-select: none;
+    }
+    .scratch-tips {
+      text-align: center;
+    }
+    .scratch-prizes,
+    .scratch-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      width: 200px;
+      height: 100px;
+      text-align: center;
+    }
+    .prizes-item {
+      color: blueviolet;
+      font-size: 22px;
+      display: none;
+      /* vertical-align: middle; */
+    }
+    .scratch-prizes::after {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+  </style>
+  <body>
+    <div class="scratch-wrap">
+      <p class="scratch-tips">马上刮开拿大奖</p>
+      <div class="scratch-prizes">
+        <div class="prizes-item">一等奖</div>
+        <div class="prizes-item">二等奖</div>
+        <div class="prizes-item">三等奖</div>
+      </div>
+      <canvas class="scratch-canvas" id="J_canvas"></canvas>
+    </div>
+    <script>
+      const $ = q => document.querySelectorAll(q);
+      const $$ = q => document.querySelector(q);
+      function random(min, max) {
+        return Math.round(Math.random() * (max - min)) + min;
+      }
+      class Scratch {
+        constructor({ canvas, bgColor, width, height, lineW }) {
+          this.canvas = canvas;
+          this.ctx = canvas.getContext('2d');
+          this.bgColor = bgColor;
+          this.width = width;
+          this.height = height;
+          this.lineW = lineW;
+          this.isDown = false; // 是否按下鼠标
+          this.downX = 0; // 当前鼠标X坐标
+          this.downY = 0; // 当前鼠标Y坐标
+          this.isPhone = 'ontouchstart' in window ? true : false;
+          this._init();
+          this._bindEvent();
+        }
+        // 初始化
+        _init() {
+          const { canvas, ctx, bgColor, width, height } = this;
+          canvas.setAttribute('width', width);
+          canvas.setAttribute('height', height);
+          ctx.beginPath();
+          // 绘制背景色
+          ctx.fillStyle = bgColor;
+          ctx.fillRect(0, 0, width, height);
+          ctx.closePath();
+        }
+        // 绑定事件
+        _bindEvent() {
+          const { canvas, isPhone } = this;
+          const tapstart = isPhone ? 'touchstart' : 'mousedown',
+            tapmove = isPhone ? 'touchmove' : 'mousemove',
+            tapend = isPhone ? 'touchend' : 'mouseup';
+          // 鼠标按下
+          canvas.addEventListener(tapstart, e => {
+            this.isDown = true;
+            const { ctx, lineW } = this;
+            this.ctx.lineCap = 'round'; //设置线条两端为圆弧
+            ctx.lineJoin = 'round'; //设置线条转折为圆弧
+            ctx.lineWidth = lineW;
+            ctx.globalCompositeOperation = 'destination-out';
+          });
+          // 鼠标移动
+          canvas.addEventListener(tapmove, e => {
+            if (this.isDown) {
+              this._updatePosition(e);
+              const { ctx, downX, downY, lineW } = this;
+              // ctx.beginPath();
+              ctx.moveTo(downX, downY);
+              ctx.lineTo(downX, downY);
+              ctx.stroke();
+              // ctx.arc(downX, downY, lineW, 0, Math.PI * 2, false);
+              // ctx.fill();
+              // ctx.closePath();
+            }
+          });
+          // 鼠标抬起
+          canvas.addEventListener(tapend, () => {
+            this.isDown = false;
+          });
+        }
+        // 更新downX & 更新downY
+        _updatePosition(e) {
+          const { isPhone, canvas } = this;
+          const offsetLeft = canvas.offsetLeft;
+          const offsetTop = canvas.offsetTop;
+          this.downX = isPhone ? e.touches[0].clientX - offsetLeft : e.clientX - offsetLeft;
+          this.downY = isPhone ? e.touches[0].pageY - offsetTop : e.pageY - offsetTop;
+        }
+      }
+      document.addEventListener('DOMContentLoaded', () => {
+        new Scratch({
+          canvas: $$('#J_canvas'),
+          bgColor: '#ccc',
+          width: 200,
+          height: 100,
+          lineW: 40
+        });
+        const randomNum = random(0, 2);
+        const $prize = $(`.prizes-item`)[randomNum];
+        $prize.style.display = 'inline-block';
+      });
+    </script>
+  </body>
+</html>

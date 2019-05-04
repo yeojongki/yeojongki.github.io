@@ -11,5 +11,5 @@
 - canvas 刮刮卡 (兼容 PC 和移动端) 👉 https://yeojongki.github.io/canvas-scratch-card/
 - canvas 检测点是否在图形中 👉 https://yeojongki.github.io/check-point-in-shape/
 - react
-  - render props 👉 https://yeojongki.github.io/react-demo/build/renderProps
-  - hoc 👉 https://yeojongki.github.io/react-demo/build/hoc
+  - render props 👉 https://yeojongki.github.io/react-demo/build/#/renderProps
+  - hoc 👉 https://yeojongki.github.io/react-demo/build/#/hoc

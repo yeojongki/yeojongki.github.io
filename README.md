@@ -12,4 +12,5 @@
 - canvas 检测点是否在图形中 👉 https://yeojongki.github.io/check-point-in-shape/
 - react
   - render props 👉 https://yeojongki.github.io/react-demo/build/#/renderProps
+  - render props 抽象 Modal 组件的状态 👉 https://yeojongki.github.io/react-demo/build/#/modalRenderProps
   - hoc 👉 https://yeojongki.github.io/react-demo/build/#/hoc

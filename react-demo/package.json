@@ -1,9 +1,10 @@
 {
-  "name": "react-render-props",
+  "name": "react-demo",
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
   "dependencies": {
+    "antd": "^3.17.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-config": "^5.0.0",
@@ -32,6 +33,8 @@
     ]
   },
   "devDependencies": {
+    "babel-plugin-import": "^1.11.0",
+    "customize-cra": "^0.2.12",
     "react-app-rewired": "^2.1.3"
   }
 }

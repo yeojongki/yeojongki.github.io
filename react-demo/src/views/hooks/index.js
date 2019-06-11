@@ -3,6 +3,7 @@ import UseState from './useState'
 import UseReducer from './useReducer'
 import UseEffect from './useEffect'
 import UseContext from './useContext'
+import UseRef from './useRef'
 
 export default {
   path: '/hooks',
@@ -27,6 +28,11 @@ export default {
       exact: true,
       path: '/hooks/useContext',
       component: UseContext
+    },
+    {
+      exact: true,
+      path: '/hooks/useRef',
+      component: UseRef
     }
   ]
 }

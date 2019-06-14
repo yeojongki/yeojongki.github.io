@@ -5,6 +5,7 @@ import UseEffect from './useEffect'
 import UseContext from './useContext'
 import UseRef from './useRef'
 import UseMemo from './useMemo'
+import UseCallback from './useCallback'
 
 export default {
   path: '/hooks',
@@ -39,6 +40,11 @@ export default {
       exact: true,
       path: '/hooks/useMemo',
       component: UseMemo
+    },
+    {
+      exact: true,
+      path: '/hooks/useCallback',
+      component: UseCallback
     }
   ]
 }

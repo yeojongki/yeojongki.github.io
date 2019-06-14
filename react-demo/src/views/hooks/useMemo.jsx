@@ -32,3 +32,5 @@ export default function Counter() {
     </>
   )
 }
+
+// memoization的用法以及它如何帮助优化应用的性能: https://blog.csdn.net/hesongGG/article/details/84347484

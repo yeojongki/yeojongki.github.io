@@ -15,9 +15,9 @@ export function* incrementAsync() {
   yield put({ type: 'INCREMENT' })
 }
 
-export function* incrementAsyncByInput(action) {
+export function* incrementAsyncByInput({ payload }) {
   yield delay(1000)
-  yield put({ type: 'INCREMENT_BY_INPUT', payload: { value: action.payload.value } })
+  yield put({ type: 'INCREMENT_BY_INPUT', payload: { value: payload.value } })
 }
 
 export function* incrementAsyncSelf() {

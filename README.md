@@ -28,6 +28,7 @@
     - [useMemo](https://yeojongki.github.io/react-demo/build/#/hooks/useMemo)
     - [useCallback + React.memo](https://yeojongki.github.io/react-demo/build/#/hooks/useCallback)
   - [redux-saga](https://yeojongki.github.io/react-demo/build/#/reduxSaga)
+  - [lazy-supense](https://yeojongki.github.io/react-demo/build/#/LazySupense)
 - Nodejs
   - [Buffer 与 base64 的转换：图片格式的转换](https://github.com/yeojongki/yeojongki.github.io/tree/master/buffer-base64-img/index.js)
 - Typescript

@@ -1,13 +1,13 @@
 import React, { lazy, Suspense } from 'react'
 
-const LazySupensePage = lazy(() => import(/* webpackChunkName: 'LazySupensePage' */ './LazySupense'))
+const LazySuspensePage = lazy(() => import(/* webpackChunkName: 'lazy-suspense' */ './LazySuspense'))
 
 export default {
-  path: '/LazySupense',
+  path: '/lazy-suspense',
   exact: true,
   component: () => (
     <Suspense fallback={<div>Loading...</div>}>
-      <LazySupensePage />
+      <LazySuspensePage />
     </Suspense>
   )
 }

@@ -26,9 +26,10 @@
     - [useContext](https://yeojongki.github.io/react-demo/build/#/hooks/useContext)
     - [useRef](https://yeojongki.github.io/react-demo/build/#/hooks/useRef)
     - [useMemo](https://yeojongki.github.io/react-demo/build/#/hooks/useMemo)
-    - [useCallback + React.memo](https://yeojongki.github.io/react-demo/build/#/hooks/useCallback)
+    - [useCallback & React.memo](https://yeojongki.github.io/react-demo/build/#/hooks/useCallback)
   - [redux-saga](https://yeojongki.github.io/react-demo/build/#/reduxSaga)
-  - [lazy-supense](https://yeojongki.github.io/react-demo/build/#/LazySupense)
+  - [lazy-supense](https://yeojongki.github.io/react-demo/build/#/lazy-suspense)
+  - [getDerivedStateFromError & componentDidCatch](https://yeojongki.github.io/react-demo/build/#/error-boundaries)
 - Nodejs
   - [Buffer 与 base64 的转换：图片格式的转换](https://github.com/yeojongki/yeojongki.github.io/tree/master/buffer-base64-img/index.js)
 - Typescript

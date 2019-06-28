@@ -1,12 +1,18 @@
-// 巧用联合类型 <Dinner 要么有fish 要么有bear>
-type Dinner = {
-  fish: number
-} | { 
-    bear: number 
-}
+/**
+ * 巧用联合类型 <Dinner 要么有fish 要么有bear>
+ */
+type Dinner =
+  | {
+      fish: number
+    }
+  | {
+      bear: number
+    }
 const dinner: Dinner = { fish: 2 }
 
-// 巧用查找类型+泛型+keyof
+/**
+ * 巧用查找类型+泛型+keyof
+ */
 interface API {
   '/user': { name: string }
   '/menu': { foods: string }
@@ -16,13 +22,21 @@ const get = <URL extends keyof API>(url: URL): Promise<API[URL]> => {
 }
 get('/user').then(user => user.name)
 
-// 巧用 DeepReadonly
+function getObjKey<T extends object, K extends keyof T>(o: T, name: K): T[K] {
+  return o[name]
+}
+
+/**
+ * 巧用 DeepReadonly
+ */
 type DeepReadonly<T> = { readonly [P in keyof T]: DeepReadonly<T[P]> }
 const a = { foo: { bar: 123 } }
 const b = a as DeepReadonly<typeof a>
 // b.foo = 321  // Error !!
 
-// 巧用Record类型
+/**
+ * 巧用Record类型
+ */
 type AnimalType = 'cat' | 'dog' | 'frog'
 const AnimalMap = {
   cat: { name: '猫' },
@@ -39,7 +53,9 @@ const rightAnimalMap: Record<AnimalType, AnimalDescription> = {
   frog: { name: '蛙' }
 }
 
-// 巧用ClassOf <传入类本身，而不是类的实例>
+/**
+ * 巧用ClassOf <传入类本身，而不是类的实例>
+ */
 abstract class Animal {}
 class Cat extends Animal {}
 
@@ -53,3 +69,44 @@ interface ClassOf<T> {
 const rightRenderAnimal = (AnimalComponent: ClassOf<Animal>) => {
   return AnimalComponent
 }
+
+/**
+ * is
+ * koa 的错误处理流程，以下是对 error 进行集中处理，
+ * 并且标识 code 的过程
+ */
+interface IKoa {
+  use: Function
+}
+const app: IKoa = { use: function() {} }
+app.use(async (ctx, next) => {
+  try {
+    await next()
+  } catch (err) {
+    let code = 'BAD_REQUEST'
+    if (err.isAxiosError) {
+      code = `Axios-${err.code}`
+    }
+    //  else if (err instanceof Sequelize.BaseError) {
+    // }
+    ctx.body = {
+      code
+    }
+  }
+})
+/**
+ *  在 err.code 处，会编译出错，提示 Property 'code' does not exist on type 'Error'.ts(2339)。
+    此时可以使用 as AxiosError 或者 as any 来避免报错，不过强制类型转换也不够友好
+    if ((err as AxiosError).isAxiosError) {
+      code = `Axios-${(err as AxiosError).code}`
+    }
+
+    此时可以使用 is 来判定值的类型
+    function isAxiosError (error: any): error is AxiosError {
+      return error.isAxiosError
+    }
+
+    if (isAxiosError(err)) {
+      code = `Axios-${err.code}`
+    }
+ */

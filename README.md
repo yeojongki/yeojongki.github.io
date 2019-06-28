@@ -18,7 +18,8 @@
   - [使用 antd.DatePicker 创建一个 年份选择器](https://yeojongki.github.io/react-demo/build/#/antdYearPicker)
   - [render props](https://yeojongki.github.io/react-demo/build/#/renderProps)
   - [render props 抽象 Modal 组件的状态](https://yeojongki.github.io/react-demo/build/#/modalRenderProps)
-  - [hoc](https://yeojongki.github.io/react-demo/build/#/hoc)
+  - [高阶组件 hoc](https://yeojongki.github.io/react-demo/build/#/hoc)
+  - [高阶组件配合装饰器](https://yeojongki.github.io/react-demo/build/#/decorators-hoc)
   - hooks
     - [useState](https://yeojongki.github.io/react-demo/build/#/hooks/useState)
     - [useEffect](https://yeojongki.github.io/react-demo/build/#/hooks/useEffect)
@@ -27,7 +28,7 @@
     - [useRef](https://yeojongki.github.io/react-demo/build/#/hooks/useRef)
     - [useMemo](https://yeojongki.github.io/react-demo/build/#/hooks/useMemo)
     - [useCallback & React.memo](https://yeojongki.github.io/react-demo/build/#/hooks/useCallback)
-  - [redux-saga](https://yeojongki.github.io/react-demo/build/#/reduxSaga)
+  - [redux-saga](https://yeojongki.github.io/react-demo/build/#/redux-saga)
   - [lazy-supense](https://yeojongki.github.io/react-demo/build/#/lazy-suspense)
   - [getDerivedStateFromError & componentDidCatch](https://yeojongki.github.io/react-demo/build/#/error-boundaries)
 - Nodejs

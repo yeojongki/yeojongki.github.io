@@ -1,7 +1,7 @@
-import Main from './main'
+import React from 'react'
 
 export default {
-  path: '/reduxSaga',
+  path: '/redux-saga',
   exact: true,
-  component: Main
+  component: React.lazy(()=> import(/* webpackChunkName: 'redux-saga' */'./main'))
 }

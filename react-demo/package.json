@@ -36,6 +36,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
     "babel-plugin-import": "^1.11.0",
     "customize-cra": "^0.2.12",
     "react-app-rewired": "^2.1.3"

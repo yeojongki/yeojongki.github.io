@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[0],{284:function(n,e,a){"use strict";a.r(e);var t=a(0),u=a.n(t);e.default=function(n){var e=n.name,a=void 0===e?"LazySupense":e;return u.a.createElement("div",null,"page: ",a)}}}]);
-//# sourceMappingURL=lazy-suspense.994efce9.chunk.js.map

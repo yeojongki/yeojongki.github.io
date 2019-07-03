@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>login</title>
+</head>
+
+<body>
+  <p>https://www.baidu.com/img/bd_logo1.png</p>
+  <p>xxx" onerror="alert(1)"</p>
+  <input type="text" id="J_input" value="https://www.baidu.com/img/bd_logo1.png">
+  <button id="J_add">添加图片</button>
+  <div id="J_box"></div>
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script>
+    // DOM-base型xss
+    // 只改变当前客户端的页面显示
+    // 不会危害到其他用户的客户端
+
+    function createImgStr(url) {
+      return `<img src="${url}"/>`
+    }
+
+    $('#J_add').on('click', () => {
+      const url = $('#J_input').val()
+      // $('#J_box').html(createImgStr(url))
+      $('#J_box').html(encodeURI(createImgStr(url)))
+    })
+  </script>
+</body>
+
+</html>

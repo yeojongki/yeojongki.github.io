@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>发表</title>
+</head>
+
+<body>
+  <ul id="J_list"></ul>
+  <form onsubmit="post(event)">
+    <div>
+      <textarea type="text" placeholder="请输入内容" id="J_content"></textarea>
+    </div>
+    <input type="submit" value="提交" />
+  </form>
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script>
+    // 存储型 xss
+    // 1. 客户端传到服务器时，先转义
+    // 2. 服务端也做转义
+    // 3. 在输出 html 的时候转义
+    function encodeHtml(str) {
+      return str.replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+    }
+
+    function post(e) {
+      e.preventDefault();
+      // 转义
+      const content = encodeHtml($('#J_content').val())
+      // const content = $('#J_content').val()
+      $.post('/api/post', { content }).then(res => {
+        if (res.code === 0) {
+          getComments()
+        } else {
+          location.href = '/login.html'
+        }
+      })
+    }
+
+    function getComments() {
+      $.get('/api/comments').then(res => {
+        if (res.code === 0) {
+          let html = ''
+          res.comments.forEach(comment => {
+            html += `<li>${comment.username}： ${comment.content}</li>`
+          });
+          $("#J_list").html(html)
+        }
+      })
+    }
+
+    getComments()
+
+  </script>
+</body>
+
+</html>

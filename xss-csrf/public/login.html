@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>login</title>
+</head>
+
+<body>
+  <form onsubmit="login(event)">
+    <div>
+      <label for="J_username">用户名：</label>
+      <input type="text" placeholder="请输入用户名" id="J_username">
+    </div>
+    <div>
+      <label for="J_password">密码：</label>
+      <input type="text" placeholder="请输入密码" id="J_password">
+    </div>
+    <input type="submit" value="登录" />
+  </form>
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script>
+    function login(e) {
+      e.preventDefault();
+      const username = $('#J_username').val()
+      const password = $('#J_password').val()
+      $.post('/api/login', { username, password }).then(res => {
+        if (res.code === 0) {
+          location.href = '/save.html'
+        } else {
+          alert(res.error)
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>

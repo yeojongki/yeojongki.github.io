@@ -7,8 +7,8 @@ const cookieParser = require('cookie-parser')
 
 // fake users
 const users = {
-  jay: '1',
-  jj: '2'
+  jay: { password: '1', money: 10000 },
+  jj: { password: '1', money: 100 }
 }
 
 // session
@@ -22,9 +22,9 @@ app
   .use(cookieParser())
   .post('/api/login', (req, res) => {
     const { username, password } = req.body
-    if (users[username] && users[username] === password) {
+    if (users[username] && users[username].password === password) {
       const sessionId = uuid()
-      sessionMap.set(sessionId, { username, password })
+      sessionMap.set(sessionId, { username, password, money: users[username].money })
       res.cookie(SESSION_ID_KEY, sessionId)
       res.json({ code: 0 })
     } else {
@@ -63,6 +63,29 @@ app.post('/api/post', (req, res) => {
   if (user.username) {
     comments.push({ username: user.username, content: req.body.content })
     res.json({ code: 0, comments })
+  } else {
+    res.json({ code: 1, error: '未登录' })
+  }
+})
+
+app.get('/api/userInfo', (req, res) => {
+  const session = req.cookies[SESSION_ID_KEY]
+  const user = sessionMap.get(session) || {}
+  if (user.username) {
+    res.json({ code: 0, username: user.username, money: users[user.username].money })
+  } else {
+    res.json({ code: 1, error: '未登录' })
+  }
+})
+
+app.post('/api/transfer', (req, res) => {
+  const session = req.cookies[SESSION_ID_KEY]
+  const user = sessionMap.get(session) || {}
+  const { target, money } = req.body
+  if (user.username) {
+    users[target].money += +money
+    users[user.username].money -= +money
+    res.json({ code: 0 })
   } else {
     res.json({ code: 1, error: '未登录' })
   }

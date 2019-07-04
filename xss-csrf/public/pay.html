@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>转账</title>
+</head>
+
+<body>
+  <div class="userinfo">
+    <p>用户名：<span class="J_user"></span></p>
+    <p>金额：<span class="J_money"></span></p>
+  </div>
+  <form onsubmit="transfer(event)">
+    <div>
+      <label for="J_target">收款人：</label>
+      <input type="text" placeholder="请输入收款人" id="J_target">
+    </div>
+    <div>
+      <label for="J_input">金额</label>
+      <input type="text" placeholder="请输入金额" id="J_input">
+    </div>
+    <input type="submit" value="转账" />
+  </form>
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script>
+    function getUserInfo() {
+      $.get('/api/userInfo').then(res => {
+        $('.J_user').text(res.username)
+        $('.J_money').text(res.money)
+      })
+    }
+
+    getUserInfo()
+
+    // 存储型 xss
+    // 1. 客户端传到服务器时，先转义
+    // 2. 服务端也做转义
+    // 3. 在输出 html 的时候转义
+    function encodeHtml(str) {
+      return str.replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+    }
+
+    function transfer(e) {
+      e.preventDefault();
+      // 转义
+      const money = encodeHtml($('#J_input').val())
+      const target = encodeHtml($('#J_target').val())
+
+      // const content = $('#J_input').val()
+      $.post('/api/transfer', { money, target }).then(res => {
+        if (res.code === 0) {
+          getUserInfo()
+        } else {
+          location.href = '/login.html'
+        }
+      })
+    }
+
+  </script>
+</body>
+
+</html>

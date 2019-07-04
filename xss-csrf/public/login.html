@@ -28,7 +28,8 @@
       const password = $('#J_password').val()
       $.post('/api/login', { username, password }).then(res => {
         if (res.code === 0) {
-          location.href = '/save.html'
+          // location.href = '/save.html'
+          location.href = '/pay.html'
         } else {
           alert(res.error)
         }

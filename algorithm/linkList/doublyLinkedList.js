@@ -242,6 +242,33 @@ class DoublyLinkedList {
   }
 
   /**
+   * 链表反转
+   * @returns {DoublyLinkedList}
+   * @memberof DoublyLinkedList
+   */
+  reverse() {
+    let currentNode = this.head
+    let prevNode = null
+    let nextNode = null
+
+    while (currentNode) {
+      // 保存下一个节点
+      nextNode = currentNode.next
+
+      // 将当前节点的下一节点指向前一节点
+      currentNode.next = prevNode
+
+      // 将前一节点和下一节点的指向往前挪
+      prevNode = currentNode
+      currentNode = nextNode
+    }
+
+    // 重置头和尾
+    this.tail = this.head
+    this.head = prevNode
+  }
+
+  /**
    * 是否为空
    * @returns {boolean}
    * @memberof DoublyLinkedList
@@ -269,5 +296,5 @@ linkedList.append(5)
 // console.log(linkedList)
 // console.log(linkedList.toString())
 // console.log(linkedList.toStringReverse())
-
+linkedList.reverse()
 console.log(linkedList.toArray())

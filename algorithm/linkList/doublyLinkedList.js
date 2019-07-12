@@ -260,8 +260,10 @@ class DoublyLinkedList {
       currentNode.next = prevNode
       currentNode.prev = nextNode
 
-      // 将前一节点和当前节点的指向往前挪一步
+      // 作为下次迭代时的（当前节点的）向前指针
       prevNode = currentNode
+
+      // 作为下次迭代时的（当前）节点
       currentNode = nextNode
     }
 
@@ -288,7 +290,10 @@ const linkedList = new DoublyLinkedList()
 // .append(2)
 // .pop()
 
-linkedList.append(-1).append(3)
+linkedList
+  .append(1)
+  .append(4)
+  .append(3)
 // console.log(linkedList.shift())
 // console.log(linkedList.get(3))
 // linkedList.shift()
@@ -297,10 +302,33 @@ linkedList.append(-1).append(3)
 // linkedList.deleteAt(0)
 // linkedList.delete(3)
 // linkedList.append(5)
-// console.log(linkedList)
 // console.log(linkedList.toString())
 // console.log(linkedList.toStringReverse())
-console.log(linkedList)
-linkedList.reverse()
+// console.log(linkedList)
 // console.log(linkedList.toArray())
-console.log(linkedList)
+// console.log(linkedList.reverse())
+
+/**
+ * 迭代反转链表
+ * @param {*} head
+ * @returns {head}
+ */
+function reverseByLoop(head) {
+  if (!head || !head.next) return head
+
+  let next = null
+  let prev = null
+  while (head) {
+    next = head.next
+    prev = head.prev
+
+    head.next = prev
+    head.prev = next
+
+    prev = head
+    head = next
+  }
+  return prev
+}
+
+console.log(reverseByLoop(linkedList.head))

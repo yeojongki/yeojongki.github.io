@@ -130,8 +130,10 @@ class SinglyLinkedList {
       // 将当前节点的下一节点指向前一节点
       currentNode.next = prevNode
 
-      // 将前一节点和当前节点的指向往前挪一步
+      // 作为下次迭代时的（当前节点的）向前指针
       prevNode = currentNode
+
+      // 作为下次迭代时的（当前）节点
       currentNode = nextNode
     }
 
@@ -153,9 +155,9 @@ class SinglyLinkedList {
 }
 
 const linkedList = new SinglyLinkedList()
+
 linkedList
   .append(1)
-  .append(5)
   .append(4)
   .append(3)
 
@@ -165,5 +167,42 @@ linkedList
 // linkedList.deleteAt(0)
 console.log(linkedList.toString())
 
-linkedList.reverse()
-console.log(linkedList.toString())
+// linkedList.reverse()
+// console.log(linkedList.toString())
+
+/**
+ * 迭代反转链表
+ * @param {*} head
+ * @returns {head}
+ */
+function reverseByLoop(head) {
+  if (!head || !head.next) return head
+
+  let prev
+  let next
+  while (head) {
+    next = head.next
+    head.next = prev
+    prev = head
+    head = next
+  }
+  return prev
+}
+
+console.log(reverseByLoop(linkedList.head))
+
+/**
+ * 递归反转链表
+ * @param {*} head
+ * @returns {head}
+ */
+// function reverseByRecursion(head) {
+//   if (!head || !head.next) return head
+
+//   let newHead = reverseByRecursion(head.next)
+//   head.next.next = head
+//   head.next = null
+//   return newHead
+// }
+
+// console.log(reverseByRecursion(linkedList.head))

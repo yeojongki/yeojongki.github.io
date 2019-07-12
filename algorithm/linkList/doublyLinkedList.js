@@ -254,11 +254,13 @@ class DoublyLinkedList {
     while (currentNode) {
       // 保存下一个节点
       nextNode = currentNode.next
+      prevNode = currentNode.prev
 
       // 将当前节点的下一节点指向前一节点
       currentNode.next = prevNode
+      currentNode.prev = nextNode
 
-      // 将前一节点和下一节点的指向往前挪
+      // 将前一节点和当前节点的指向往前挪一步
       prevNode = currentNode
       currentNode = nextNode
     }
@@ -266,6 +268,8 @@ class DoublyLinkedList {
     // 重置头和尾
     this.tail = this.head
     this.head = prevNode
+
+    return this
   }
 
   /**
@@ -279,12 +283,12 @@ class DoublyLinkedList {
 }
 
 const linkedList = new DoublyLinkedList()
-linkedList.appendAt(0, -1)
+// linkedList.appendAt(0, -1)
 // .append(2)
 // .append(2)
 // .pop()
 
-linkedList.append(3)
+linkedList.append(-1).append(3)
 // console.log(linkedList.shift())
 // console.log(linkedList.get(3))
 // linkedList.shift()
@@ -292,9 +296,11 @@ linkedList.append(3)
 // linkedList.pop()
 // linkedList.deleteAt(0)
 // linkedList.delete(3)
-linkedList.append(5)
+// linkedList.append(5)
 // console.log(linkedList)
 // console.log(linkedList.toString())
 // console.log(linkedList.toStringReverse())
+console.log(linkedList)
 linkedList.reverse()
-console.log(linkedList.toArray())
+// console.log(linkedList.toArray())
+console.log(linkedList)

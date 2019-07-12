@@ -7,7 +7,7 @@ class SinglyNode {
   }
 }
 
-class SinglyLinkedNode {
+class SinglyLinkedList {
   constructor() {
     this.head = null
     this.length = 0
@@ -17,7 +17,7 @@ class SinglyLinkedNode {
    * 插入数据
    * @param {*} data
    * @returns {SinglyLinkedNode}
-   * @memberof SinglyLinkedNode
+   * @memberof SinglyLinkedList
    */
   append(data) {
     const newNode = new SinglyNode(data)
@@ -38,7 +38,7 @@ class SinglyLinkedNode {
    * 根据值查找元素在链表中的位置, 没有找到返回 -1
    * @param {*} data
    * @returns {number}
-   * @memberof SinglyLinkedNode
+   * @memberof SinglyLinkedList
    */
   findIndex(data) {
     let position = 0
@@ -57,7 +57,7 @@ class SinglyLinkedNode {
    * 查找 index 位置的节点, index 不合法时会返回 null
    * @param {number} index
    * @returns {SinglyNode}
-   * @memberof SinglyLinkedNode
+   * @memberof SinglyLinkedList
    */
   getAt(index) {
     if (!checkIndex(index, this.length)) return null
@@ -78,7 +78,7 @@ class SinglyLinkedNode {
    * 根据 index 删除元素, 返回被删除节点, index 不合法时会返回 null
    * @param {*} index
    * @returns {SinglyNode}
-   * @memberof SinglyLinkedNode
+   * @memberof SinglyLinkedList
    */
   deleteAt(index) {
     if (!checkIndex(index, this.length)) return null
@@ -101,7 +101,7 @@ class SinglyLinkedNode {
   /**
    * 将链表中的所有数据转成字符串
    * @returns {string}
-   * @memberof LinkList
+   * @memberof SinglyLinkedList
    */
   toString() {
     let str = ''
@@ -114,16 +114,45 @@ class SinglyLinkedNode {
   }
 
   /**
+   * 链表反转
+   * @returns {SinglyLinkedList}
+   * @memberof SinglyLinkedList
+   */
+  reverse() {
+    let prevNode = null
+    let nextNode = null
+    let currentNode = this.head
+
+    while (currentNode) {
+      // 保存下一个节点
+      nextNode = currentNode.next
+
+      // 将当前节点的下一节点指向前一节点
+      currentNode.next = prevNode
+
+      // 将前一节点和当前节点的指向往前挪一步
+      prevNode = currentNode
+      currentNode = nextNode
+    }
+
+    // 重置头和尾
+    this.tail = this.head
+    this.head = prevNode
+
+    return this
+  }
+
+  /**
    * 是否为空
    * @returns {boolean}
-   * @memberof LinkList
+   * @memberof SinglyLinkedList
    */
   isEmpty() {
     return this.length === 0
   }
 }
 
-const linkedList = new SinglyLinkedNode()
+const linkedList = new SinglyLinkedList()
 linkedList
   .append(1)
   .append(5)
@@ -131,8 +160,10 @@ linkedList
   .append(3)
 
 // console.log(linkedList.head)
-console.log(linkedList.findIndex(3))
-console.log(linkedList.getAt(2))
-linkedList.deleteAt(0)
-linkedList.deleteAt(2)
+// console.log(linkedList.findIndex(3))
+// console.log(linkedList.getAt(2))
+// linkedList.deleteAt(0)
+console.log(linkedList.toString())
+
+linkedList.reverse()
 console.log(linkedList.toString())

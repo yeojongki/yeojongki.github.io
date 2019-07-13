@@ -8,7 +8,7 @@ class DoublyNode {
   }
 }
 
-class DoublyLinkedList {
+module.exports = class DoublyLinkedList {
   constructor() {
     this.head = null
     this.tail = null
@@ -67,14 +67,19 @@ class DoublyLinkedList {
 
   /**
    * 将链表中的所有数据转成数组
+   * @param {*} fn 可选, 不传时返回节点数组, 传入则遍历时候执行函数，必须要有返回值
    * @returns {any[]}
-   * @memberof DoublyLinkedList
    */
-  toArray() {
+  toArray(fn) {
     const datas = []
     let currentNode = this.head
+    let hasFn = !fn || typeof fn !== 'function'
     while (currentNode) {
-      datas.push(currentNode.data)
+      if (hasFn) {
+        datas.push(currentNode.data)
+      } else {
+        datas.push(fn(currentNode.data))
+      }
       currentNode = currentNode.next
     }
     return datas
@@ -128,6 +133,38 @@ class DoublyLinkedList {
 
     this.length++
     return this
+  }
+
+  /**
+   * 在链表头插入元素
+   * @param {*} data
+   * @returns {DoublyNode}
+   */
+  unshift(data) {
+    const node = new DoublyNode(data)
+
+    if (this.length === 0) {
+      this.tail = node
+    } else {
+      this.head.prev = node
+      node.next = this.head
+    }
+    this.head = node
+
+    this.length++
+    return node
+  }
+
+  unshiftNode(node) {
+    if (this.length === 0) {
+      this.tail = node
+      this.head = node
+    } else {
+      node.next = this.head
+      this.head.prev = node
+      this.head = node
+    }
+    this.length++
   }
 
   /**
@@ -207,6 +244,25 @@ class DoublyLinkedList {
     return currentNode
   }
 
+  removeNode(node) {
+    let prev = node.prev
+    let next = node.next
+
+    prev && (prev.next = next)
+    next && (next.prev = prev)
+
+    if (node === this.head) {
+      this.head = next
+    }
+    if (node === this.tail) {
+      this.head = prev
+    }
+
+    node.next = null
+    node.prev = null
+    this.length--
+  }
+
   /**
    * 根据值删除元素
    * @param {*} data
@@ -284,51 +340,51 @@ class DoublyLinkedList {
   }
 }
 
-const linkedList = new DoublyLinkedList()
-// linkedList.appendAt(0, -1)
-// .append(2)
-// .append(2)
-// .pop()
+// const linkedList = new DoublyLinkedList()
+// // linkedList.appendAt(0, -1)
+// // .append(2)
+// // .append(2)
+// // .pop()
 
-linkedList
-  .append(1)
-  .append(4)
-  .append(3)
-// console.log(linkedList.shift())
-// console.log(linkedList.get(3))
-// linkedList.shift()
-// linkedList.append(2)
-// linkedList.pop()
-// linkedList.deleteAt(0)
-// linkedList.delete(3)
-// linkedList.append(5)
-// console.log(linkedList.toString())
-// console.log(linkedList.toStringReverse())
-// console.log(linkedList)
-// console.log(linkedList.toArray())
-// console.log(linkedList.reverse())
+// linkedList
+//   .append(1)
+//   .append(4)
+//   .append(3)
+// // console.log(linkedList.shift())
+// // console.log(linkedList.get(3))
+// // linkedList.shift()
+// // linkedList.append(2)
+// // linkedList.pop()
+// // linkedList.deleteAt(0)
+// // linkedList.delete(3)
+// // linkedList.append(5)
+// // console.log(linkedList.toString())
+// // console.log(linkedList.toStringReverse())
+// // console.log(linkedList)
+// // console.log(linkedList.toArray())
+// // console.log(linkedList.reverse())
 
-/**
- * 迭代反转链表
- * @param {*} head
- * @returns {head}
- */
-function reverseByLoop(head) {
-  if (!head || !head.next) return head
+// /**
+//  * 迭代反转链表
+//  * @param {*} head
+//  * @returns {head}
+//  */
+// function reverseByLoop(head) {
+//   if (!head || !head.next) return head
 
-  let next = null
-  let prev = null
-  while (head) {
-    next = head.next
-    prev = head.prev
+//   let next = null
+//   let prev = null
+//   while (head) {
+//     next = head.next
+//     prev = head.prev
 
-    head.next = prev
-    head.prev = next
+//     head.next = prev
+//     head.prev = next
 
-    prev = head
-    head = next
-  }
-  return prev
-}
+//     prev = head
+//     head = next
+//   }
+//   return prev
+// }
 
-console.log(reverseByLoop(linkedList.head))
+// // console.log(reverseByLoop(linkedList.head))

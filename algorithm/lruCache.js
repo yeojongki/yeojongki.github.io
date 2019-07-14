@@ -14,10 +14,8 @@ class LRUCache {
   get(key) {
     const node = this.map[key]
     if (node) {
-      console.log('get1', this.linkedList)
       this.linkedList.removeNode(node)
-      console.log('get2', this.linkedList)
-      // this.linkedList.unshiftNode(node)
+      this.linkedList.unshiftNode(node)
       return node.data
     }
   }
@@ -71,15 +69,21 @@ class LRUCache {
 }
 
 const cache = new LRUCache()
-cache.set('test1', 1)
-cache.set('test2', 2)
-cache.set('test3', 3)
-// 2 3
-cache.get('test2')
-// 3 2
-cache.set('test-1', -1)
-console.log(cache.keys())
-// console.log(cache.head)
+cache.set('test1', 1) // 1
+cache.set('test2', 2) // 2 1
+cache.set('test3', 3) // 3 2
+
+cache.get('test2') // 2 3
+cache.set('test-1', -1) // -1 2
+// console.log(cache.linkedList.head)
+// console.log(cache.linkedList.tail)
+
+// console.log(cache.keys())
 // console.log(cache.linkedList)
-// console.log(cache.values())
+// console.log(cache.linkedList.head)
+
+// console.log(cache.linkedList.head.next)
+// console.log(cache.linkedList.tail)
+
+console.log(cache.values())
 // console.log(cache.length)

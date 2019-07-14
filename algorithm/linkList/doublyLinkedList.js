@@ -255,7 +255,7 @@ module.exports = class DoublyLinkedList {
       this.head = next
     }
     if (node === this.tail) {
-      this.head = prev
+      this.tail = prev
     }
 
     node.next = null

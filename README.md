@@ -31,6 +31,8 @@
   - [redux-saga](https://yeojongki.github.io/react-demo/build/#/redux-saga)
   - [lazy-supense](https://yeojongki.github.io/react-demo/build/#/lazy-suspense)
   - [getDerivedStateFromError & componentDidCatch](https://yeojongki.github.io/react-demo/build/#/error-boundaries)
+- 微信小程序
+  - [(转载) 如何用小程序实现类原生APP下一条无限刷体验](https://github.com/yeojongki/yeojongki.github.io/tree/master/mp-infinite-swipe/readme.md)
 - Nodejs
   - [Buffer 与 base64 的转换：图片格式的转换](https://github.com/yeojongki/yeojongki.github.io/tree/master/buffer-base64-img/index.js)
 - Typescript

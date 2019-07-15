@@ -1,0 +1,33 @@
+<scroll-view
+  wx:if="{{current <= item.index + 1 && item.index -1 <= current}}"
+  class="scroll-view"
+  scroll-top="{{scrollTop}}"
+  scroll-with-animation="{{false}}"
+  scroll-y
+>
+  <view
+    hidden="{{item.index !== current && item.index !== current + 1}}"
+    class="fake-scroll {{item.index === current && 'hidden'}}"
+    >
+  </view>
+  <view
+    wx:if="{{item.index === current || item.index === current + 1}}"
+    class="article {{item.index !== current && 'hidden'}}"
+    >
+    <view class="title">第{{current}}篇文章的标题</view>
+    <view class="text">正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</view>
+    <view class="fake-title">【上滑查看下一篇】</view>
+    <view class="title">第{{current + 1}}篇文章的标题</view>
+  </view>
+  <view
+    wx:if="{{item.index + 1 === current}}"
+    class="fake-previous {{showFakePrevious && 'show-fake-previous'}}"
+    >
+    <view class="mask-words">
+      下滑查看上一条
+      <image class="mask-icon"
+        src="http://mat1.gtimg.com/www/js/news/open-blue.png"
+      />
+    </view>
+  </view>
+</scroll-view>

@@ -4,7 +4,7 @@ import ModalContainer from './modalContainer'
 import { Button } from 'antd'
 
 export default {
-  path: '/modalRenderProps',
+  path: '/modal-render-props',
   exact: true,
   component: () => (
     <ModalContainer>

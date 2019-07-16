@@ -1,7 +1,7 @@
 import MouseTracker from './mouseTracker'
 
 export default {
-  path: '/renderProps',
+  path: '/render-props',
   exact: true,
   component: MouseTracker
 }

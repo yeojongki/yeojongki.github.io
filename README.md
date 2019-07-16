@@ -16,8 +16,8 @@
   - [检测点是否在图形中](https://yeojongki.github.io/check-point-in-shape/)
 - React
   - [使用 antd.DatePicker 创建一个 年份选择器](https://yeojongki.github.io/react-demo/build/#/antdYearPicker)
-  - [render props](https://yeojongki.github.io/react-demo/build/#/renderProps)
-  - [render props 抽象 Modal 组件的状态](https://yeojongki.github.io/react-demo/build/#/modalRenderProps)
+  - [render props](https://yeojongki.github.io/react-demo/build/#/render-props)
+  - [render props 抽象 Modal 组件的状态](https://yeojongki.github.io/react-demo/build/#/modal-render-props)
   - [高阶组件 hoc](https://yeojongki.github.io/react-demo/build/#/hoc)
   - [高阶组件配合装饰器](https://yeojongki.github.io/react-demo/build/#/decorators-hoc)
   - hooks
@@ -31,8 +31,9 @@
   - [redux-saga](https://yeojongki.github.io/react-demo/build/#/redux-saga)
   - [lazy-supense](https://yeojongki.github.io/react-demo/build/#/lazy-suspense)
   - [getDerivedStateFromError & componentDidCatch](https://yeojongki.github.io/react-demo/build/#/error-boundaries)
+  - [滑动卡片](https://yeojongki.github.io/react-demo/build/#/swipe-card)
 - 微信小程序
-  - [(转载) 如何用小程序实现类原生APP下一条无限刷体验](https://github.com/yeojongki/yeojongki.github.io/tree/master/mp-infinite-swipe/readme.md)
+  - [(转载) 如何用小程序实现类原生 APP 下一条无限刷体验](https://github.com/yeojongki/yeojongki.github.io/tree/master/mp-infinite-swipe/readme.md)
 - Nodejs
   - [Buffer 与 base64 的转换：图片格式的转换](https://github.com/yeojongki/yeojongki.github.io/tree/master/buffer-base64-img/index.js)
 - Typescript

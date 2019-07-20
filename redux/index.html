@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>redux-demo</title>
+</head>
+
+<body>
+  <h1 class="count">count: 0</h1>
+  <button class="J_add">add</button>
+  <button class="J_decrease">decrease</button>
+</body>
+
+<script type="module">
+  import { createStore } from './index.js'
+
+  const $ = q => document.querySelector(q)
+
+  function countReducer(state, action) {
+    switch (action.type) {
+      case 'add':
+        return { count: state.count + 1 }
+      case 'decrease':
+        return { count: state.count - 1 }
+      default:
+        return state
+    }
+  }
+
+  const store = createStore(countReducer, { count: 0 })
+
+  const add = () => {
+    store.dispatch({ type: 'add' })
+  }
+  const decrease = () => {
+    store.dispatch({ type: 'decrease' })
+  }
+
+  $('.J_add').addEventListener('click', add)
+  $('.J_decrease').addEventListener('click', decrease)
+
+  const listener = () => {
+    const { count } = store.getState()
+    $('.count').innerHTML = `count：${count}`
+  }
+
+  store.subscribe(listener)
+</script>
+
+</html>

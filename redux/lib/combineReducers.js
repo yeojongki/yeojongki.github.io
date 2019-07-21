@@ -10,12 +10,12 @@ const combineReducer = reducers => {
   const finalReducerKyes = Object.keys(finalReducer)
   return function combination(state = {}, action) {
     let hasChanged = false
-    const nextState = {}
+    const nextState = Object.create(null)
     finalReducerKyes.forEach(key => {
-      const previousValue = state[key]
-      const nextValue = reducers[key](previousValue, action)
-      nextState[key] = nextValue
-      hasChanged = hasChanged || previousValue !== nextState
+      const previousStateForKey = state[key]
+      const nextStateForKey = reducers[key](previousStateForKey, action)
+      nextState[key] = nextStateForKey
+      hasChanged = hasChanged || previousStateForKey !== nextStateForKey
     })
     return hasChanged ? nextState : state
   }

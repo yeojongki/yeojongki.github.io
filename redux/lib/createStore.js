@@ -23,6 +23,8 @@ const createStore = (reducer, preloadedState, enhancer) => {
     return action
   }
 
+  dispatch({ type: `@@redux/INIT}` })
+
   return {
     getState,
     dispatch,

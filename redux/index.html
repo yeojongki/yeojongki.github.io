@@ -7,30 +7,59 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>redux-demo</title>
 </head>
+<style>
+  .completed {
+    text-decoration: line-through;
+  }
+</style>
 
 <body>
-  <h1 class="count">count: 0</h1>
-  <button class="J_add">add</button>
-  <button class="J_decrease">decrease</button>
+  <div>
+    <h2 class="count">count: 0</h2>
+    <button class="J_add">add</button>
+    <button class="J_decrease">decrease</button>
+  </div>
+  <div>
+    <h2>todoList：</h2>
+    <input type="text" class="J_todo_input" placeholder="请输入">
+    <button class="J_todo_add">add</button>
+    <ul class="J_todo"></ul>
+  </div>
 </body>
 
 <script type="module">
-  import { createStore } from './index.js'
+  import { createStore, combineReducers } from './index.js'
 
   const $ = q => document.querySelector(q)
 
-  function countReducer(state, action) {
+  function count(state = 0, action) {
     switch (action.type) {
       case 'add':
-        return { count: state.count + 1 }
+        return state + 1
       case 'decrease':
-        return { count: state.count - 1 }
+        return state - 1
       default:
         return state
     }
   }
 
-  const store = createStore(countReducer, { count: 0 })
+  let todoList = []
+  function todo(state = todoList, action) {
+    switch (action.type) {
+      case 'addTodo':
+        return [...state, action.payload]
+      case 'delete':
+        return state.filter(item => item.id !== action.payload.id)
+      default:
+        return state
+    }
+  }
+
+  const rootReducer = combineReducers({ count, todo })
+  const store = createStore(rootReducer)
+
+  // todo 输入框的值
+  let todoInput = ''
 
   const add = () => {
     store.dispatch({ type: 'add' })
@@ -39,12 +68,49 @@
     store.dispatch({ type: 'decrease' })
   }
 
+  const handleInput = e => {
+    todoInput = e.target.value
+  }
+
+  // genarate UID
+  const genUID = () => Math.random().toString(16).substr(7)
+
+  const handleAddTodo = () => {
+    store.dispatch({
+      type: 'addTodo',
+      payload: { title: todoInput, id: genUID(), completed: false }
+    })
+  }
+
+  const handleClickTodo = (e) => {
+    let isBtn = e.target.tagName.toUpperCase() === 'BUTTON'
+    if (isBtn) {
+      let id = e.target.dataset.id
+      store.dispatch({ type: 'delete', payload: { id } })
+    }
+  }
+
+
   $('.J_add').addEventListener('click', add)
   $('.J_decrease').addEventListener('click', decrease)
+  $('.J_todo_input').addEventListener('input', handleInput)
+  $('.J_todo_add').addEventListener('click', handleAddTodo)
+  $('.J_todo').addEventListener('click', handleClickTodo)
 
   const listener = () => {
-    const { count } = store.getState()
+    const { count, todo } = store.getState()
     $('.count').innerHTML = `count：${count}`
+
+    function renderTodo(list) {
+      let todoStr = ''
+      list.forEach(item => {
+        todoStr += `<li class="${item.completed ? 'completed' : ''}">
+          ${item.title}<button data-id=${item.id}>删除</button>
+          </li>`
+      })
+      return todoStr
+    }
+    $('.J_todo').innerHTML = renderTodo(todo)
   }
 
   store.subscribe(listener)

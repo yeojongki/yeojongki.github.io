@@ -6,6 +6,15 @@
  * @returns {Store}
  */
 const createStore = (reducer, preloadedState, enhancer) => {
+  if (typeof preloadedState === 'function') {
+    enhancer = preloadedState
+    preloadedState = undefined
+  }
+
+  if (typeof enhancer === 'function') {
+    return enhancer(createStore)(reducer, preloadedState)
+  }
+
   let currentState = preloadedState
   let currentReducer = reducer
 

@@ -17,6 +17,7 @@
   <div>
     <h2 class="count">count: 0</h2>
     <button class="J_add">add</button>
+    <button class="J_add_async">addAsync</button>
     <button class="J_decrease">decrease</button>
   </div>
   <div>
@@ -28,7 +29,9 @@
 </body>
 
 <script type="module">
-  import { createStore, combineReducers } from './index.js'
+  import { createStore, combineReducers, applyMiddlewares } from './index.js'
+  import sayHiMiddleware from './sayHiMiddleware.js'
+  import logMiddleware from './logMiddleware.js'
 
   const $ = q => document.querySelector(q)
 
@@ -56,13 +59,23 @@
   }
 
   const rootReducer = combineReducers({ count, todo })
-  const store = createStore(rootReducer)
+  const logger = logMiddleware()
+  const sayHi = sayHiMiddleware()
+  const store = createStore(rootReducer, applyMiddlewares(sayHi, logger))
 
   // todo 输入框的值
   let todoInput = ''
 
   const add = () => {
     store.dispatch({ type: 'add' })
+  }
+  const addAsync = () => (dispatch) => {
+    setTimeout(() => {
+      dispatch({ type: 'add' })
+    }, 1000)
+  }
+  const handleAddAsync = () => {
+    store.dispatch(addAsync())
   }
   const decrease = () => {
     store.dispatch({ type: 'decrease' })
@@ -92,6 +105,7 @@
 
 
   $('.J_add').addEventListener('click', add)
+  $('.J_add_async').addEventListener('click', handleAddAsync)
   $('.J_decrease').addEventListener('click', decrease)
   $('.J_todo_input').addEventListener('input', handleInput)
   $('.J_todo_add').addEventListener('click', handleAddTodo)

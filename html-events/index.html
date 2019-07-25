@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>html-events</title>
+</head>
+<style>
+  .child {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: rebeccapurple;
+  }
+
+  .parent {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background: greenyellow;
+  }
+</style>
+
+<body>
+  <img src="./events.png" style="display: block;">
+  <div class="parent">
+    <div class="child"></div>
+  </div>
+  <script>
+    const $ = q => document.querySelector(q)
+    $('.parent').addEventListener('click', () => { console.log('p 冒泡') }, false)
+    $('.parent').addEventListener('click', () => { console.log('p 捕获') }, true)
+
+    $('.child').addEventListener('click', () => { console.log('c 冒泡') }, false)
+    $('.child').addEventListener('click', () => { console.log('c 捕获') }, true)
+
+    // 点击 parent：按添加事件顺序执行 p 冒泡 p 捕获
+
+    // 点击 child：
+    // p 捕获 
+    // c 冒泡
+    // c 捕获
+    // p 冒泡
+
+    // 说明父级执行顺序是先 `捕获` 再 `冒泡`
+
+    // 结论：
+    // 在捕获阶段又在冒泡阶段调用事件处理程序时：
+    // 事件按DOM事件流的顺序执行事件处理程序，也就是上图所示
+
+    // 当事件处于目标阶段时，事件调用顺序决定于绑定事件的书写顺序
+  </script>
+</body>
+
+</html>

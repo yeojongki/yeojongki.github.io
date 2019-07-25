@@ -6,6 +6,7 @@
 - JS
   - [图片懒加载](https://yeojongki.github.io/img-lazyload/)
   - [瀑布流 (ajax 滚动加载、toast 加载提示)](https://yeojongki.github.io/water-fall/)
+  - [实现带并发限制的异步调度器](https://github.com/yeojongki/yeojongki.github.io/blob/master/async-limit-scheduler/index.js)
 - Game
   - [Phaser 元宝大作战](https://yeojongki.github.io/phaser3-pickMoney/dist/)
 - Vue

@@ -36,7 +36,7 @@ export default interval => WrappedComponent => {
       const diff = this.endTimeStamp - now
       if (diff > 0) {
         this.setState({
-          __timer: { ...this.state.__timer, ...getLeftTime(~~diff / 1000), expired: false }
+          __timer: { ...this.state.__timer, ...getLeftTime(parseInt(diff / 1000)), expired: false }
         })
       } else {
         clearInterval(this.__timer)

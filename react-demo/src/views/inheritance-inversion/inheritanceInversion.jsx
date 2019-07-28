@@ -19,4 +19,4 @@ class CountDown extends React.PureComponent {
   }
 }
 
-export default () => <CountDown endTime={1664307185291} />
+export default () => <CountDown endTime={+new Date() + 10000} />

@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d1ff1c6aa67c6c8d2747ad7d10e86d8d",
+    "revision": "1c6f60c7cd7ec8a86c5305fc54f985c1",
     "url": "./index.html"
   },
   {
@@ -24,8 +24,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "./static/js/7.d2a6185c.chunk.js"
   },
   {
-    "revision": "6c61523c1df0c0abb078",
-    "url": "./static/js/inheritance-inversion.8009a6bb.chunk.js"
+    "revision": "e1abfb68f9deaa3bbdca",
+    "url": "./static/js/inheritance-inversion.5aef79f0.chunk.js"
   },
   {
     "revision": "c8ebb3a4947884d406e5",
@@ -40,8 +40,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "./static/js/redux-saga.b8829ed8.chunk.js"
   },
   {
-    "revision": "c506ae509583d3e1bdbd",
-    "url": "./static/js/runtime~main.edee860a.js"
+    "revision": "a8f3273b906a9c841e87",
+    "url": "./static/js/runtime~main.13dd65d7.js"
   },
   {
     "revision": "5086ea1850d48a2022af",

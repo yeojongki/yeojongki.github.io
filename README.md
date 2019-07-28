@@ -23,6 +23,7 @@
   - [render props 抽象 Modal 组件的状态](https://yeojongki.github.io/react-demo/build/#/modal-render-props)
   - [高阶组件 hoc](https://yeojongki.github.io/react-demo/build/#/hoc)
   - [高阶组件配合装饰器](https://yeojongki.github.io/react-demo/build/#/decorators-hoc)
+  - [反向继承](https://yeojongki.github.io/react-demo/build/#/inheritance-inversion)
   - hooks
     - [useState](https://yeojongki.github.io/react-demo/build/#/hooks/useState)
     - [useEffect](https://yeojongki.github.io/react-demo/build/#/hooks/useEffect)

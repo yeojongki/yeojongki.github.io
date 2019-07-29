@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import { getDisplayName } from '@/utils'
 
 const authList = ['admin']
 
 function withAuth(WrappedComponent) {
   class HOC extends Component {
-    static displayName =  `HOC(${getDisplayName(WrappedComponent)})`
-    
+    static displayName = `HOC(${getDisplayName(WrappedComponent)})`
+
     render() {
       const { visible, auth, ...props } = this.props
       if (visible === false || (auth && authList.indexOf(auth) === -1)) {
@@ -13,10 +14,6 @@ function withAuth(WrappedComponent) {
       }
       return <WrappedComponent {...props} />
     }
-  }
-
-  function getDisplayName(WrappedComponent) {
-    return WrappedComponent.displayName || WrappedComponent.name || 'Component'
   }
 
   return HOC

@@ -14,6 +14,7 @@
 - Vue
   - [递归组件](https://yeojongki.github.io/vue-recursive-component/)
   - [仿微信发布朋友圈拖拽排序图片](https://yeojongki.github.io/wx-sort-cells/dist/)
+  - [实现 vuex](https://yeojongki.github.io/vue-demo/dist/#/vuex)
 - Canvas
   - [刮刮卡 (兼容 PC 和移动端)](https://yeojongki.github.io/canvas-scratch-card/)
   - [检测点是否在图形中](https://yeojongki.github.io/check-point-in-shape/)

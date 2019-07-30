@@ -5,6 +5,28 @@ import Vuex from '@/vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    a: {
+      state: {
+        value: 'aModule'
+      },
+      getters: {
+        getAModule: state => state.value
+      },
+      modules: {
+        subA: {
+          state: {
+            value: 'subAModule'
+          }
+        }
+      }
+    },
+    b: {
+      state: {
+        value: 'bModule'
+      }
+    }
+  },
   state: {
     count: 0
   },

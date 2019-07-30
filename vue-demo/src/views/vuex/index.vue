@@ -2,6 +2,8 @@
   <div>
     <p>state count: {{$store.state.count}}</p>
     <p>getters count: {{$store.getters.count}}</p>
+    <p>A module getters: {{$store.getters.getAModule}}</p>
+    <p>A module state: {{$store.state.a.value}}</p>
     <input type="number" v-model.number="num" />
     <button @click="add">add</button>
     <button @click="addAsync">addAsync</button>

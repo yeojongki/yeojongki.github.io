@@ -18,5 +18,12 @@ export default new Vuex.Store({
     decrease(state, payload) {
       state.count -= payload
     }
+  },
+  actions: {
+    addAsync({ commit }, payload) {
+      setTimeout(() => {
+        commit('add', payload)
+      }, 1000)
+    }
   }
 })

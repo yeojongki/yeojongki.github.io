@@ -11,8 +11,8 @@ module.exports = {
     camelcase: 0,
     // allow async-await
     'generator-star-spacing': 0,
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    // 'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   },
   parserOptions: {
     parser: 'babel-eslint'

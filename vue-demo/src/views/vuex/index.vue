@@ -4,6 +4,7 @@
     <p>getters count: {{$store.getters.count}}</p>
     <input type="number" v-model.number="num" />
     <button @click="add">add</button>
+    <button @click="addAsync">addAsync</button>
     <button @click="decrease">decrease</button>
   </div>
 </template>
@@ -26,6 +27,9 @@ export default {
     },
     decrease() {
       this.$store.commit('decrease', this.num)
+    },
+    addAsync() {
+      this.$store.dispatch('addAsync', this.num)
     }
   }
 }

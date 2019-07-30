@@ -17,6 +17,7 @@ export class Store {
     })
 
     this._mutations = Object.create(null)
+    this._actions = Object.create(null)
     this.getters = Object.create(null)
 
     let mutations = options.mutations || Object.create(null)
@@ -33,6 +34,13 @@ export class Store {
         enumerable: true
       })
     })
+
+    let actions = options.actions || Object.create(null)
+    forEachValue(actions, (key, fn) => {
+      this._actions[key] = payload => {
+        fn(this, payload)
+      }
+    })
   }
 
   get state() {
@@ -45,11 +53,22 @@ export class Store {
     }
   }
 
-  commit(type, payload) {
+  commit = (type, payload) => {
     const entry = this._mutations[type]
     if (!entry) {
       if (process.env.NODE_ENV !== 'production') {
         console.error(`[vuex] unknown mutation type: ${type}`)
+      }
+      return
+    }
+    entry(payload)
+  }
+
+  dispatch = (type, payload) => {
+    const entry = this._actions[type]
+    if (!entry) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.error(`[vuex] unknown action type: ${type}`)
       }
       return
     }

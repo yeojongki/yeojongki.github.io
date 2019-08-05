@@ -1,7 +1,18 @@
-import { Controller, Get, Param, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  UseGuards,
+  Request,
+  Delete,
+} from '@nestjs/common';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { ITokenResult } from './user.interface';
 
 @Controller('user')
 export class UserController {
@@ -12,9 +23,16 @@ export class UserController {
     return [];
   }
 
+  @UseGuards(AuthGuard('jwt'))
+  @Get('me')
+  async getProfile(@Request() req) {
+    const { id } = req.user;
+    return this.userService.getUserById(id);
+  }
+
   @Get(':id')
   getByID(@Param('id') id: string) {
-    return `your id: ${id}`;
+    return `get id: ${id}`;
   }
 
   @Post()
@@ -23,7 +41,7 @@ export class UserController {
   }
 
   @Post('login')
-  async login(@Body() body: LoginUserDto): Promise<any> {
-    return await this.userService.findOne(body);
+  async login(@Body() body: LoginUserDto): Promise<ITokenResult> {
+    return await this.userService.validateUser(body);
   }
 }

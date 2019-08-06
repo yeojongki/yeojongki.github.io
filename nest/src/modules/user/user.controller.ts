@@ -6,7 +6,6 @@ import {
   Body,
   UseGuards,
   Request,
-  Delete,
 } from '@nestjs/common';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UserService } from './user.service';
@@ -18,21 +17,21 @@ import { ITokenResult } from './user.interface';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get()
-  getAll() {
-    return [];
+  private async getUserById(id: number) {
+    const user = await this.userService.findOne({ id });
+    return this.userService.buildUser(user);
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('me')
+  @Get('self')
   async getProfile(@Request() req) {
     const { id } = req.user;
-    return this.userService.getUserById(id);
+    return this.getUserById(id);
   }
 
   @Get(':id')
-  getByID(@Param('id') id: string) {
-    return `get id: ${id}`;
+  getByID(@Param('id') id: number) {
+    return this.getUserById(id);
   }
 
   @Post()
@@ -42,6 +41,6 @@ export class UserController {
 
   @Post('login')
   async login(@Body() body: LoginUserDto): Promise<ITokenResult> {
-    return await this.userService.validateUser(body);
+    return await this.userService.login(body);
   }
 }

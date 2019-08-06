@@ -1,6 +1,18 @@
 import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from 'typeorm';
-import { IsEmail, MaxLength, MinLength, Contains } from 'class-validator';
+import {
+  IsEmail,
+  MaxLength,
+  MinLength,
+  Contains,
+  IsNotEmpty,
+} from 'class-validator';
 import * as crypto from 'crypto';
+
+enum Gender {
+  UNKNOWN,
+  MALE,
+  FEMALE,
+}
 
 @Entity('user')
 export class UserEntity {
@@ -8,10 +20,19 @@ export class UserEntity {
   id: number;
 
   @Column()
-  // @Contains('test', {message: 'username must contains `test`'})
-  @IsEmail()
-  @MaxLength(15, { message: 'username is too long' })
+  @IsNotEmpty()
+  @MaxLength(4)
   username: string;
+
+  @Column()
+  @IsNotEmpty()
+  @MinLength(6)
+  password: string;
+
+  @BeforeInsert()
+  hashPassword() {
+    this.password = crypto.createHmac('sha256', this.password).digest('hex');
+  }
 
   // @Column({ default: null })
   // @IsEmail()
@@ -20,15 +41,12 @@ export class UserEntity {
   // @Column({ default: null })
   // role: string;
 
+  @Column('enum', {
+    enum: Gender,
+    default: 0,
+  })
+  gender: number;
+
   @Column({ default: '' })
   avatar: string;
-
-  @Column()
-  @MinLength(6, { message: 'passwold is too short' })
-  password: string;
-
-  @BeforeInsert()
-  hashPassword() {
-    this.password = crypto.createHmac('sha256', this.password).digest('hex');
-  }
 }

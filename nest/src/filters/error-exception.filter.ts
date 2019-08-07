@@ -25,14 +25,13 @@ export class ErrorExceptionFilter implements ExceptionFilter {
       : HttpStatus.INTERNAL_SERVER_ERROR;
 
     const message =
-      errorResponse.error ||
       errorResponse.message ||
+      errorResponse.error ||
       `unknown error in ${request.url}`;
 
     response.status(statusCode).json({
       status: 'error',
-      // statusCode,
-      message: message || '',
+      message,
     });
   }
 }

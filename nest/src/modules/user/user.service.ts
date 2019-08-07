@@ -87,7 +87,10 @@ export class UserService {
 
     const user = await repo.getOne();
     if (user) {
-      throw new HttpException(`用户名已存在`, HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        { error: '用户名已存在' },
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     // create new user

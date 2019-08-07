@@ -12,6 +12,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { ITokenResult } from './user.interface';
+import { Message } from '@/decorators/http.decorator';
 
 @Controller('user')
 export class UserController {
@@ -35,6 +36,7 @@ export class UserController {
   }
 
   @Post()
+  @Message('创建成功')
   async create(@Body() userData: CreateUserDto) {
     return this.userService.create(userData);
   }

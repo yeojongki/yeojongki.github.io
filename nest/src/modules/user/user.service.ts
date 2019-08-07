@@ -20,11 +20,11 @@ export class UserService {
 
   /**
    * 生成 jwt
-   * @param {number} id user.id
+   * @param {string} id user.id
    * @returns {ITokenResult}
    * @memberof UserService
    */
-  public generateJWT(id: number): ITokenResult {
+  public generateJWT(id: string): ITokenResult {
     return {
       access_token: this.jwtService.sign({ id }),
       expired_in: TOKEN_EXPIRED,
@@ -53,7 +53,7 @@ export class UserService {
    * @memberof UserService
    */
   public async findOne(query: any): Promise<UserEntity> {
-    return await this.userRepository.findOne(query);
+    return await this.userRepository.findOne(query, { relations: ['roles'] });
   }
 
   /**

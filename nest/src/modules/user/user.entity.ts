@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BeforeInsert,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import {
   IsEmail,
   MaxLength,
@@ -7,6 +14,7 @@ import {
   IsNotEmpty,
 } from 'class-validator';
 import * as crypto from 'crypto';
+import { RoleEntity } from '../role/role.entity';
 
 enum Gender {
   UNKNOWN,
@@ -16,12 +24,12 @@ enum Gender {
 
 @Entity('user')
 export class UserEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   @IsNotEmpty()
-  @MaxLength(4)
+  @MaxLength(16)
   username: string;
 
   @Column()
@@ -38,8 +46,9 @@ export class UserEntity {
   // @IsEmail()
   // email: string;
 
-  // @Column({ default: null })
-  // role: string;
+  @Column()
+  // @MaxLength(30)
+  mobile: string;
 
   @Column('enum', {
     enum: Gender,
@@ -47,6 +56,14 @@ export class UserEntity {
   })
   gender: number;
 
-  @Column({ default: '' })
+  @Column()
   avatar: string;
+
+  @ManyToMany(type => RoleEntity, role => role)
+  @JoinTable({
+    name: 'user_role',
+    joinColumn: { name: 'user_id' },
+    inverseJoinColumn: { name: 'role_id' },
+  })
+  roles: RoleEntity[];
 }

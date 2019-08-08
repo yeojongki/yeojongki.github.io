@@ -8,5 +8,5 @@
   "entities": [
     "src/**/**.entity{.ts,.js}"
   ],
-  "syncronize": true
+  "synchronize": true
 }

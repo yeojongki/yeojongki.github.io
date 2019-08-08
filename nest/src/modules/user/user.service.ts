@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { TOKEN_EXPIRED } from '@/config';
 import { validate } from 'class-validator';
 import { throwIfValidationError } from '@/utils';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -20,11 +21,11 @@ export class UserService {
 
   /**
    * 生成 jwt
-   * @param {string} id user.id
+   * @param {(string | number)} id
    * @returns {ITokenResult}
    * @memberof UserService
    */
-  public generateJWT(id: string): ITokenResult {
+  public generateJWT(id: string | number): ITokenResult {
     return {
       access_token: this.jwtService.sign({ id }),
       expired_in: TOKEN_EXPIRED,
@@ -65,7 +66,7 @@ export class UserService {
    */
   public buildUser(user: UserEntity) {
     if (user) {
-      const { password, ...result } = user;
+      const { password, createdAt, updatedAt, ...result } = user;
       return result;
     } else {
       throw new HttpException({ error: '用户不存在' }, HttpStatus.BAD_REQUEST);
@@ -103,5 +104,23 @@ export class UserService {
 
     const savedUser = await this.userRepository.save(newUser);
     return Promise.resolve(this.generateJWT(savedUser.id));
+  }
+
+  /**
+   * 更新用户信息
+   * @param {UpdateUserDto} user
+   * @returns {Promise<void>}
+   * @memberof UserService
+   */
+  public async update(user: UpdateUserDto): Promise<void> {
+    const { id } = user;
+    let toUpdate = await this.findOne({ id });
+    if (toUpdate) {
+      let updatedUser = Object.assign(toUpdate, user);
+      await this.userRepository.save(updatedUser);
+      return Promise.resolve();
+    } else {
+      return Promise.reject({ error: '用户不存在' });
+    }
   }
 }

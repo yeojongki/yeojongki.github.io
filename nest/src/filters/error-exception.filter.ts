@@ -18,7 +18,7 @@ export class ErrorExceptionFilter implements ExceptionFilter {
     const httpException = (() => exception as HttpException)();
     const errorResponse = httpException.getResponse
       ? (httpException.getResponse() as TExceptionOption)
-      : (httpException as TExceptionOption);
+      : (exception as TExceptionOption);
 
     const statusCode = isHttpException
       ? httpException.getStatus()

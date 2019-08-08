@@ -5,18 +5,18 @@ import {
   BeforeInsert,
   ManyToMany,
   JoinTable,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
-import {
-  IsEmail,
-  MaxLength,
-  MinLength,
-  Contains,
-  IsNotEmpty,
-} from 'class-validator';
 import * as crypto from 'crypto';
 import { RoleEntity } from '../role/role.entity';
+import {
+  MAX_LENGTH_EMAIL,
+  MAX_LENGTH_MOBILE,
+  MAX_LENGTH_USERNAME,
+} from '@/constants/validate.const';
 
-enum Gender {
+export enum Gender {
   UNKNOWN,
   MALE,
   FEMALE,
@@ -27,14 +27,26 @@ export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  @IsNotEmpty()
-  @MaxLength(16)
+  @CreateDateColumn({
+    name: 'created_at',
+    type: 'timestamp',
+    precision: 0,
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  readonly createdAt: Date;
+
+  @UpdateDateColumn({
+    name: 'updated_at',
+    type: 'timestamp',
+    precision: 0,
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  readonly updatedAt: Date;
+
+  @Column({ type: 'varchar', length: MAX_LENGTH_USERNAME })
   username: string;
 
-  @Column()
-  @IsNotEmpty()
-  @MinLength(6)
+  @Column({ type: 'char', length: 64 })
   password: string;
 
   @BeforeInsert()
@@ -42,12 +54,10 @@ export class UserEntity {
     this.password = crypto.createHmac('sha256', this.password).digest('hex');
   }
 
-  // @Column({ default: null })
-  // @IsEmail()
-  // email: string;
+  @Column({ type: 'varchar', length: MAX_LENGTH_EMAIL, default: null })
+  email: string;
 
-  @Column()
-  // @MaxLength(30)
+  @Column({ type: 'varchar', length: MAX_LENGTH_MOBILE, default: '' })
   mobile: string;
 
   @Column('enum', {
@@ -56,7 +66,7 @@ export class UserEntity {
   })
   gender: number;
 
-  @Column()
+  @Column({ default: '' })
   avatar: string;
 
   @ManyToMany(type => RoleEntity, role => role)

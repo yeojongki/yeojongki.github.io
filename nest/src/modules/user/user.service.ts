@@ -7,9 +7,8 @@ import { Repository, getRepository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { TOKEN_EXPIRED } from '@/config';
-import { validate } from 'class-validator';
-import { throwIfValidationError } from '@/utils';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { RoleEntity } from '../role/role.entity';
 
 @Injectable()
 export class UserService {
@@ -17,6 +16,8 @@ export class UserService {
     private readonly jwtService: JwtService,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(RoleEntity)
+    private readonly roleRepository: Repository<RoleEntity>,
   ) {}
 
   /**
@@ -75,34 +76,21 @@ export class UserService {
 
   /**
    * 创建用户
-   * @param {CreateUserDto} createUserDto
+   * @param {CreateUserDto} dto
    * @returns {Promise<ITokenResult>}
    * @memberof UserService
    */
-  public async create(createUserDto: CreateUserDto): Promise<ITokenResult> {
-    // check uniqueness of username
-    const { username, password } = createUserDto;
-    const repo = await getRepository(UserEntity)
-      .createQueryBuilder('user')
-      .where('user.username = :username', { username });
-
-    const user = await repo.getOne();
-    if (user) {
-      throw new HttpException(
-        { error: '用户名已存在' },
-        HttpStatus.BAD_REQUEST,
-      );
+  public async create(dto: CreateUserDto): Promise<ITokenResult> {
+    // 添加默认角色
+    if (!dto.roles) {
+      const role = await this.roleRepository.findOne({
+        where: { token: 'default' },
+      });
+      dto.roles = [role];
     }
 
-    // create new user
-    let newUser = new UserEntity();
-    newUser.username = username;
-    newUser.password = password;
-
-    const errors = await validate(newUser);
-    throwIfValidationError(errors);
-
-    const savedUser = await this.userRepository.save(newUser);
+    const user = this.userRepository.create(dto);
+    const savedUser = await this.userRepository.save(user);
     return Promise.resolve(this.generateJWT(savedUser.id));
   }
 
@@ -116,8 +104,7 @@ export class UserService {
     const { id } = user;
     let toUpdate = await this.findOne({ id });
     if (toUpdate) {
-      let updatedUser = Object.assign(toUpdate, user);
-      await this.userRepository.save(updatedUser);
+      await this.userRepository.save(Object.assign(toUpdate, user));
       return Promise.resolve();
     } else {
       return Promise.reject({ error: '用户不存在' });

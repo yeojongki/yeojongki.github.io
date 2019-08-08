@@ -10,11 +10,6 @@ import {
 } from 'typeorm';
 import * as crypto from 'crypto';
 import { RoleEntity } from '../role/role.entity';
-import {
-  MAX_LENGTH_EMAIL,
-  MAX_LENGTH_MOBILE,
-  MAX_LENGTH_USERNAME,
-} from '@/constants/validate.const';
 
 export enum Gender {
   UNKNOWN,
@@ -29,21 +24,15 @@ export class UserEntity {
 
   @CreateDateColumn({
     name: 'created_at',
-    type: 'timestamp',
-    precision: 0,
-    default: () => 'CURRENT_TIMESTAMP',
   })
-  readonly createdAt: Date;
+  readonly createdAt: number;
 
   @UpdateDateColumn({
     name: 'updated_at',
-    type: 'timestamp',
-    precision: 0,
-    default: () => 'CURRENT_TIMESTAMP',
   })
-  readonly updatedAt: Date;
+  readonly updatedAt: number;
 
-  @Column({ type: 'varchar', length: MAX_LENGTH_USERNAME })
+  @Column({ unique: true })
   username: string;
 
   @Column({ type: 'char', length: 64 })
@@ -54,10 +43,10 @@ export class UserEntity {
     this.password = crypto.createHmac('sha256', this.password).digest('hex');
   }
 
-  @Column({ type: 'varchar', length: MAX_LENGTH_EMAIL, default: null })
+  @Column({ default: null })
   email: string;
 
-  @Column({ type: 'varchar', length: MAX_LENGTH_MOBILE, default: '' })
+  @Column({ default: null })
   mobile: string;
 
   @Column('enum', {
@@ -66,7 +55,7 @@ export class UserEntity {
   })
   gender: number;
 
-  @Column({ default: '' })
+  @Column({ default: null })
   avatar: string;
 
   @ManyToMany(type => RoleEntity, role => role)

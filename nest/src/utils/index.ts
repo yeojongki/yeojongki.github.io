@@ -8,7 +8,7 @@ export function now(time: number = 0): number {
 export function throwIfValidationError(errors: ValidationError[]) {
   if (errors.length > 0) {
     const errorMsg = errors
-      .map(error => Object.values(error.constraints).join(','))
+      .map(error => Object.values(error.constraints).join(';'))
       .join(';');
     throw new BadRequestException(errorMsg);
   }

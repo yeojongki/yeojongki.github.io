@@ -12,8 +12,14 @@ export class RoleEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ comment: '名称', unique: true })
   name: string;
+
+  @Column({ comment: '标识', unique: true})
+  token: string;
+
+  @Column({ comment: '描述', default: null, nullable: true })
+  desc: string;
 
   @ManyToMany(type => UserEntity, user => user.roles)
   @JoinTable({

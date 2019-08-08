@@ -4,9 +4,10 @@ import { Module } from '@nestjs/common';
 import { UserModule } from './modules/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
+import { RoleModule } from './modules/role/role.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), UserModule],
+  imports: [TypeOrmModule.forRoot(), UserModule, RoleModule],
   // controllers: [AppController],
 })
 export class AppModule {

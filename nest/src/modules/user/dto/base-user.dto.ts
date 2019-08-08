@@ -25,5 +25,5 @@ export class BaseUserDto extends UsernameDto {
 
   avatar: string;
   gender: Gender;
-  roles: RoleEntity;
+  roles: RoleEntity[];
 }

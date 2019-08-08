@@ -6,5 +6,5 @@
  * @returns
  */
 export function genMsgOfLength(field: string, len: number, higher = true) {
-  return { message: `${field}长度不能${higher ? '大' : '小'}于${len}位` };
+  return { message: `${field}不能${higher ? '大' : '小'}于${len}位` };
 }

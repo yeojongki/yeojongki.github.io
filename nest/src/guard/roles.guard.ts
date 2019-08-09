@@ -1,6 +1,12 @@
-import { CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
+@Injectable()
 export class RolesGuard implements CanActivate {
   // 利用反射器 `Reflector` 获取指定的键反射元数据
   constructor(private readonly reflector: Reflector) {}
@@ -12,8 +18,17 @@ export class RolesGuard implements CanActivate {
       return true;
     }
     const request = context.switchToHttp().getRequest();
-    const user = request.user;
-    const hasRole = () => user.roles.some(role => roles.includes(role));
-    return user && user.roles && hasRole();
+    const { user } = request;
+    const hasRole = () =>
+      (user.roles as string[]).some(role => roles.includes(role));
+
+    if (user && user.roles && hasRole()) {
+      return true;
+    } else {
+      throw new UnauthorizedException({
+        statusCode: 403,
+        message: '您的权限不足',
+      });
+    }
   }
 }

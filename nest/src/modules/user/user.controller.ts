@@ -15,6 +15,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { ITokenResult } from './user.interface';
 import { Message } from '@/decorators/http.decorator';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { RolesGuard } from '@/guard/roles.guard';
+import { Roles } from '@/decorators/roles.decorator';
 
 @Controller('user')
 export class UserController {
@@ -25,7 +27,8 @@ export class UserController {
     return this.userService.buildUser(user);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('superAdmin')
   @Get('self')
   async getProfile(@Request() req) {
     const { id } = req.user;
@@ -49,7 +52,7 @@ export class UserController {
   }
 
   @Put()
-  @Message("修改成功")
+  @Message('修改成功')
   async update(@Body() query: UpdateUserDto) {
     return await this.userService.update(query);
   }

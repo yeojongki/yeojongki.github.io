@@ -3,7 +3,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { ITokenResult } from './user.interface';
 import { UserEntity } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { TOKEN_EXPIRED } from '@/config';
@@ -23,12 +23,14 @@ export class UserService {
   /**
    * 生成 jwt
    * @param {(string | number)} id
+   * @param {RoleEntity[]} roles
    * @returns {ITokenResult}
    * @memberof UserService
    */
-  public generateJWT(id: string | number): ITokenResult {
+  public generateJWT(id: string | number, roles: RoleEntity[]): ITokenResult {
+    const tokens = roles.map(role => role.token);
     return {
-      access_token: this.jwtService.sign({ id }),
+      access_token: this.jwtService.sign({ id, roles: tokens }),
       expired_in: TOKEN_EXPIRED,
     };
   }
@@ -43,7 +45,7 @@ export class UserService {
     const { username, password } = loginUserDto;
     const user = await this.findOne({ username });
     if (user && user.password === password) {
-      return Promise.resolve(this.generateJWT(user.id));
+      return Promise.resolve(this.generateJWT(user.id, user.roles));
     }
     return null;
   }
@@ -91,7 +93,7 @@ export class UserService {
 
     const user = this.userRepository.create(dto);
     const savedUser = await this.userRepository.save(user);
-    return Promise.resolve(this.generateJWT(savedUser.id));
+    return Promise.resolve(this.generateJWT(savedUser.id, savedUser.roles));
   }
 
   /**

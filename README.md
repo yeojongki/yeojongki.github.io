@@ -1,8 +1,9 @@
 # Demo
 
 - CSS
-  - [纯 CSS 实现无缝滚动](https://yeojongki.github.io/css3-infinite-marquee/)
-  - [布局 两列定宽自适应 圣杯布局等](https://yeojongki.github.io/css-layout/)
+  - [纯 CSS 实现无缝滚动](https://yeojongki.github.io/css/infinite-marquee.html)
+  - [布局 两列定宽自适应 圣杯布局等](https://yeojongki.github.io/css/css-layout.html)
+  - [纯 CSS 实现波浪悬浮球](https://yeojongki.github.io/css/wave.html)
 - JS
   - [图片懒加载](https://yeojongki.github.io/img-lazyload/)
   - [瀑布流 (ajax 滚动加载、toast 加载提示)](https://yeojongki.github.io/water-fall/)

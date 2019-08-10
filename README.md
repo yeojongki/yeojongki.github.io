@@ -42,8 +42,8 @@
   - [(转载) 如何用小程序实现类原生 APP 下一条无限刷体验](https://github.com/yeojongki/yeojongki.github.io/tree/master/mp-infinite-swipe/readme.md)
 - Nodejs
   - [Buffer 与 base64 的转换：图片格式的转换](https://github.com/yeojongki/yeojongki.github.io/tree/master/buffer-base64-img/index.js)
-- Typescript
   - [基于 nestjs 和 typeorm 的 demo](https://github.com/yeojongki/yeojongki.github.io/tree/master/nest)
+- Typescript
   - [巧用 typescript](https://github.com/yeojongki/yeojongki.github.io/tree/master/typescript/index.ts)
 - WebSocket
   - [socket-io](https://github.com/yeojongki/yeojongki.github.io/tree/master/socket-io)

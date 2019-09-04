@@ -12,6 +12,7 @@
 import Fibonacci from '@/components/Fibonacci'
 
 export default {
+  name: 'fibonacci',
   desc: '递归组件',
   data() {
     return {

@@ -16,7 +16,7 @@ export default {
   name: 'home',
   data() {
     return {
-      routes: routes
+      routes
     }
   }
 }

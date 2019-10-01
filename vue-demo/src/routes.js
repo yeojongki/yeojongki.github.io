@@ -10,6 +10,7 @@ const routes = files.keys().map(key => {
   return {
     path: `/${componentName}`,
     component,
+    desc: component.desc || '',
     name: componentName
   }
 })

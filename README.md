@@ -1,8 +1,10 @@
 # Demo
 
 - CSS
-  - [纯 CSS 实现无缝滚动](https://yeojongki.github.io/css3-infinite-marquee/)
-  - [布局 两列定宽自适应 圣杯布局等](https://yeojongki.github.io/css-layout/)
+  - [纯 CSS 实现无缝滚动](https://yeojongki.github.io/css/infinite-marquee.html)
+  - [布局 两列定宽自适应 圣杯布局等](https://yeojongki.github.io/css/css-layout.html)
+  - [纯 CSS 实现波浪悬浮球](https://yeojongki.github.io/css/wave.html)
+  - [按钮特效](https://yeojongki.github.io/css/button.html)
 - JS
   - [图片懒加载](https://yeojongki.github.io/img-lazyload/)
   - [瀑布流 (ajax 滚动加载、toast 加载提示)](https://yeojongki.github.io/water-fall/)
@@ -15,6 +17,7 @@
   - [递归组件](https://yeojongki.github.io/vue-recursive-component/)
   - [仿微信发布朋友圈拖拽排序图片](https://yeojongki.github.io/wx-sort-cells/dist/)
   - [实现 vuex](https://yeojongki.github.io/vue-demo/dist/#/vuex)
+  - [实现 Fibonacci](https://yeojongki.github.io/vue-demo/dist/#/fibonacci)
 - Canvas
   - [刮刮卡 (兼容 PC 和移动端)](https://yeojongki.github.io/canvas-scratch-card/)
   - [检测点是否在图形中](https://yeojongki.github.io/check-point-in-shape/)
@@ -41,6 +44,7 @@
   - [(转载) 如何用小程序实现类原生 APP 下一条无限刷体验](https://github.com/yeojongki/yeojongki.github.io/tree/master/mp-infinite-swipe/readme.md)
 - Nodejs
   - [Buffer 与 base64 的转换：图片格式的转换](https://github.com/yeojongki/yeojongki.github.io/tree/master/buffer-base64-img/index.js)
+  - [基于 nestjs 和 typeorm 的 demo](https://github.com/yeojongki/yeojongki.github.io/tree/master/nest)
 - Typescript
   - [巧用 typescript](https://github.com/yeojongki/yeojongki.github.io/tree/master/typescript/index.ts)
 - WebSocket

@@ -13,6 +13,7 @@
   - [ajax 简单实现](https://github.com/yeojongki/yeojongki.github.io/blob/master/ajax)
 - Game
   - [Phaser 元宝大作战](https://yeojongki.github.io/phaser3-pickMoney/dist/)
+  - [Egret 屏幕适配](https://yeojongki.github.io/egret-fit-screen/bin-release/web/dist/)
 - Vue
   - [递归组件](https://yeojongki.github.io/vue-recursive-component/)
   - [仿微信发布朋友圈拖拽排序图片](https://yeojongki.github.io/wx-sort-cells/dist/)

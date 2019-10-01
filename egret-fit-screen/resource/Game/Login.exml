@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LoginSkin" width="375" height="603" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="169b51d0a4f" ></w:Config>
+	<e:Image id="login_bg" source="bg_png" fillMode="scale" left="0" right="0" width="375" bottom="0"/>
+	<e:Group id="login_center" width="335.67" height="445" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="4.5" verticalCenter="-16" locked="true">
+		<e:Image id="login_logo" height="273" source="logo_png" anchorOffsetX="0" anchorOffsetY="0" width="337" y="0" horizontalCenter="0"/>
+		<e:Group id="login_input_group" width="262" height="163" scaleX="1" scaleY="1" anchorOffsetY="0" y="286" horizontalCenter="0">
+			<e:Image id="login_input_bg" source="input_png" fillMode="scale" width="262" height="163" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" x="0" y="0"/>
+			<e:Image id="login_input" width="100" height="50" source="start-btn_png" x="81" y="84.93" scaleX="1" scaleY="1"/>
+		</e:Group>
+	</e:Group>
+</e:Skin>

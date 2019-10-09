@@ -11,6 +11,7 @@
   - [实现带并发限制的异步调度器](https://github.com/yeojongki/yeojongki.github.io/blob/master/async-limit-scheduler/index.js)
   - [jsonp 原理以及实现](https://github.com/yeojongki/yeojongki.github.io/blob/master/jsonp)
   - [ajax 简单实现](https://github.com/yeojongki/yeojongki.github.io/blob/master/ajax)
+  - [Redux 实现](https://github.com/yeojongki/yeojongki.github.io/blob/master/redux)
 - Game
   - [Phaser 元宝大作战](https://yeojongki.github.io/phaser3-pickMoney/dist/)
   - [Egret 屏幕适配](https://yeojongki.github.io/egret-fit-screen/bin-release/web/dist/)
@@ -52,4 +53,6 @@
   - [socket-io](https://github.com/yeojongki/yeojongki.github.io/tree/master/socket-io)
 - 其他
   - [算法相关](https://github.com/yeojongki/yeojongki.github.io/tree/master/algorithm)
+  - [HTTP 缓存](https://github.com/yeojongki/yeojongki.github.io/tree/master/http-cache)
+  - [XSS - CSRF](https://github.com/yeojongki/yeojongki.github.io/tree/master/xss-csrf)
   - [DOM 事件流](https://yeojongki.github.io/dom-events/)

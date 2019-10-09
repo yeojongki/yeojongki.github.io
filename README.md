@@ -51,4 +51,5 @@
 - WebSocket
   - [socket-io](https://github.com/yeojongki/yeojongki.github.io/tree/master/socket-io)
 - 其他
+  - [算法相关](https://github.com/yeojongki/yeojongki.github.io/tree/master/algorithm)
   - [DOM 事件流](https://yeojongki.github.io/dom-events/)

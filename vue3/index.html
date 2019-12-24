@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="counter"></div>
+  <button id="increase">increase</button>
+  <button id="decrease">decrease</button>
+  <script src="./dist/myVue3.global.js"></script>
+  <script>
+    const $ = q => document.querySelector(q)
+    const { reactive, effect } = myVue3
+    // const counter = reactive({ now: 0, name: { nickname: 'counter' } })
+    // effect(() => {
+    //   $('#counter').innerHTML = `counter: ${counter.now}`
+    // })
+    // $('#increase').addEventListener("click", () => counter.now++)
+    // $('#decrease').addEventListener("click", () => counter.now--)
+
+    const arr = reactive([0])
+    effect(() => {
+      $('#counter').innerHTML = `counter: ${arr.reduce((p, n) => p + n, 0)}`
+    })
+    $('#increase').addEventListener("click", () => arr.push(1))
+    $('#decrease').addEventListener("click", () => arr.pop())
+  </script>
+
+</html>

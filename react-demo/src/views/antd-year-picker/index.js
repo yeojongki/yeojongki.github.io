@@ -1,7 +1,7 @@
 import YearPickerForm from './yearPickerForm'
 
 export default {
-  path: '/antdYearPicker',
+  path: '/antd-year-picker',
   exact: true,
   component: YearPickerForm
 }

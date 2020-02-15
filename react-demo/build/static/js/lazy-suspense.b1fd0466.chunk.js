@@ -1,0 +1,1 @@
+(this["webpackJsonpreact-demo"]=this["webpackJsonpreact-demo"]||[]).push([[1],{313:function(e,a,n){"use strict";n.r(a);var t=n(0),s=n.n(t);a.default=function(e){var a=e.name,n=void 0===a?"lazy-suspense":a;return s.a.createElement("div",null,"page: ",n)}}}]);

@@ -24,7 +24,8 @@
   - [刮刮卡 (兼容 PC 和移动端)](https://yeojongki.github.io/canvas-scratch-card/)
   - [检测点是否在图形中](https://yeojongki.github.io/check-point-in-shape/)
 - React
-  - [使用 antd.DatePicker 创建一个 年份选择器](https://yeojongki.github.io/react-demo/build/#/antdYearPicker)
+  - [使用 antd.DatePicker 创建一个 年份选择器](https://yeojongki.github.io/react-demo/build/#/antd-year-picker)
+  - [写一个简单的 antd 表单组件](https://yeojongki.github.io/react-demo/build/#/antd-form)
   - [render props](https://yeojongki.github.io/react-demo/build/#/render-props)
   - [render props 抽象 Modal 组件的状态](https://yeojongki.github.io/react-demo/build/#/modal-render-props)
   - [高阶组件 hoc](https://yeojongki.github.io/react-demo/build/#/hoc)

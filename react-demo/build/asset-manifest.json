@@ -1,22 +1,30 @@
 {
   "files": {
-    "inheritance-inversion.js": "./static/js/inheritance-inversion.5aef79f0.chunk.js",
-    "lazy-suspense.js": "./static/js/lazy-suspense.dafd6dc4.chunk.js",
-    "main.css": "./static/css/main.a2e371c8.chunk.css",
-    "main.js": "./static/js/main.67c49e0c.chunk.js",
-    "redux-saga.js": "./static/js/redux-saga.b8829ed8.chunk.js",
-    "runtime~main.js": "./static/js/runtime~main.13dd65d7.js",
+    "inheritance-inversion.js": "./static/js/inheritance-inversion.54b5c909.chunk.js",
+    "lazy-suspense.js": "./static/js/lazy-suspense.b1fd0466.chunk.js",
+    "main.css": "./static/css/main.d81f6d03.chunk.css",
+    "main.js": "./static/js/main.0414b0cf.chunk.js",
+    "redux-saga.js": "./static/js/redux-saga.a0b71233.chunk.js",
+    "runtime-main.js": "./static/js/runtime-main.4bccb583.js",
     "swipe-card.css": "./static/css/swipe-card.a50875f2.chunk.css",
-    "swipe-card.js": "./static/js/swipe-card.ab07a3bf.chunk.js",
-    "static/css/6.eb5ed468.chunk.css": "./static/css/6.eb5ed468.chunk.css",
-    "static/js/6.423a3d54.chunk.js": "./static/js/6.423a3d54.chunk.js",
-    "static/js/7.d2a6185c.chunk.js": "./static/js/7.d2a6185c.chunk.js",
+    "swipe-card.js": "./static/js/swipe-card.2533885f.chunk.js",
+    "static/css/6.1805a969.chunk.css": "./static/css/6.1805a969.chunk.css",
+    "static/js/6.e52ac033.chunk.js": "./static/js/6.e52ac033.chunk.js",
+    "static/js/7.25649e70.chunk.js": "./static/js/7.25649e70.chunk.js",
     "index.html": "./index.html",
-    "precache-manifest.4ae04d742b2999973b515eb6098497c5.js": "./precache-manifest.4ae04d742b2999973b515eb6098497c5.js",
+    "precache-manifest.476550b2bb6500a1b3e779bb43d941c0.js": "./precache-manifest.476550b2bb6500a1b3e779bb43d941c0.js",
     "service-worker.js": "./service-worker.js",
-    "static/css/6.eb5ed468.chunk.css.map": "./static/css/6.eb5ed468.chunk.css.map",
-    "static/css/main.a2e371c8.chunk.css.map": "./static/css/main.a2e371c8.chunk.css.map",
+    "static/css/6.1805a969.chunk.css.map": "./static/css/6.1805a969.chunk.css.map",
+    "static/css/main.d81f6d03.chunk.css.map": "./static/css/main.d81f6d03.chunk.css.map",
     "static/css/swipe-card.a50875f2.chunk.css.map": "./static/css/swipe-card.a50875f2.chunk.css.map",
-    "static/media/logo.svg": "./static/media/logo.5d5d9eef.svg"
-  }
+    "static/js/6.e52ac033.chunk.js.LICENSE.txt": "./static/js/6.e52ac033.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "./static/media/logo.ee7cd8ed.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4bccb583.js",
+    "static/css/6.1805a969.chunk.css",
+    "static/js/6.e52ac033.chunk.js",
+    "static/css/main.d81f6d03.chunk.css",
+    "static/js/main.0414b0cf.chunk.js"
+  ]
 }

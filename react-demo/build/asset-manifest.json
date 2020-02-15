@@ -3,7 +3,7 @@
     "inheritance-inversion.js": "./static/js/inheritance-inversion.54b5c909.chunk.js",
     "lazy-suspense.js": "./static/js/lazy-suspense.b1fd0466.chunk.js",
     "main.css": "./static/css/main.d81f6d03.chunk.css",
-    "main.js": "./static/js/main.0414b0cf.chunk.js",
+    "main.js": "./static/js/main.4a3dfb20.chunk.js",
     "redux-saga.js": "./static/js/redux-saga.a0b71233.chunk.js",
     "runtime-main.js": "./static/js/runtime-main.4bccb583.js",
     "swipe-card.css": "./static/css/swipe-card.a50875f2.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/6.e52ac033.chunk.js": "./static/js/6.e52ac033.chunk.js",
     "static/js/7.25649e70.chunk.js": "./static/js/7.25649e70.chunk.js",
     "index.html": "./index.html",
-    "precache-manifest.476550b2bb6500a1b3e779bb43d941c0.js": "./precache-manifest.476550b2bb6500a1b3e779bb43d941c0.js",
+    "precache-manifest.bd67c599f5baf84e1bbf828c76bc64e6.js": "./precache-manifest.bd67c599f5baf84e1bbf828c76bc64e6.js",
     "service-worker.js": "./service-worker.js",
     "static/css/6.1805a969.chunk.css.map": "./static/css/6.1805a969.chunk.css.map",
     "static/css/main.d81f6d03.chunk.css.map": "./static/css/main.d81f6d03.chunk.css.map",
@@ -25,6 +25,6 @@
     "static/css/6.1805a969.chunk.css",
     "static/js/6.e52ac033.chunk.js",
     "static/css/main.d81f6d03.chunk.css",
-    "static/js/main.0414b0cf.chunk.js"
+    "static/js/main.4a3dfb20.chunk.js"
   ]
 }

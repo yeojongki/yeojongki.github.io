@@ -10,10 +10,11 @@ function UserForm(props) {
     // let values = getFieldsValue()
     // console.log(values)
     validateFields((err, values) => {
-      if (!err) {
+      if (err) {
+        console.error('error', err)
+      } else {
         console.log('Received values of form: ', values)
       }
-      console.error('error', err)
     })
   }
 

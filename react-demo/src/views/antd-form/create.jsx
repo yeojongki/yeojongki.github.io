@@ -74,7 +74,7 @@ export default function createBaseForm() {
           let messages = []
 
           const props = {
-            value: values[name],
+            value: values[name] || '',
             onChange: ev => this.handleChange(ev, name)
           }
           if (fieldErrors && fieldErrors.errors.length > 0) {

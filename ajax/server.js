@@ -8,7 +8,9 @@ http
       res.setHeader('Access-Control-Allow-Origin', '*')
       res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With')
       res.setHeader('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
-      res.end(JSON.stringify(new Date()))
+      setTimeout(() => {
+        res.end(JSON.stringify(new Date()))
+      }, 1000);
     }
   })
   .listen(3005, () => {

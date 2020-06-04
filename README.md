@@ -9,8 +9,9 @@
   - [图片懒加载](https://yeojongki.github.io/img-lazyload/)
   - [瀑布流 (ajax 滚动加载、toast 加载提示)](https://yeojongki.github.io/water-fall/)
   - [实现带并发限制的异步调度器](https://github.com/yeojongki/yeojongki.github.io/blob/master/async-limit-scheduler/index.js)
+    - [另一种带回调版本](https://github.com/yeojongki/yeojongki.github.io/blob/master/async-limit-scheduler/has-callback.js)
   - [jsonp 原理以及实现](https://github.com/yeojongki/yeojongki.github.io/blob/master/jsonp)
-  - [ajax 简单实现](https://github.com/yeojongki/yeojongki.github.io/blob/master/ajax)
+  - [ajax 简单实现](https://github.com/yeojongki/yeojongki.github.io/blob/master/ajax/promise-ajax/index.js)
   - [Redux 实现](https://github.com/yeojongki/yeojongki.github.io/blob/master/redux)
 - Game
   - [Phaser 元宝大作战](https://yeojongki.github.io/phaser3-pickMoney/dist/)

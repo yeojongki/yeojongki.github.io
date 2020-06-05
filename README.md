@@ -2,11 +2,13 @@
 
 - CSS
   - [纯 CSS 实现无缝滚动](https://yeojongki.github.io/css/infinite-marquee.html)
+    - [另一种方式](https://yeojongki.github.io/css/marquee-next.html)
   - [布局 两列定宽自适应 圣杯布局等](https://yeojongki.github.io/css/css-layout.html)
   - [纯 CSS 实现波浪悬浮球](https://yeojongki.github.io/css/wave.html)
   - [按钮特效](https://yeojongki.github.io/css/button.html)
 - JS
   - [图片懒加载](https://yeojongki.github.io/img-lazyload/)
+  - [F.L.I.P](https://yeojongki.github.io/flip/) - 利用 Web Animations 实现
   - [瀑布流 (ajax 滚动加载、toast 加载提示)](https://yeojongki.github.io/water-fall/)
   - [实现带并发限制的异步调度器](https://github.com/yeojongki/yeojongki.github.io/blob/master/async-limit-scheduler/index.js)
     - [另一种带回调版本](https://github.com/yeojongki/yeojongki.github.io/blob/master/async-limit-scheduler/has-callback.js)

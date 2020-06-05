@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F.L.I.P</title>
+</head>
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  #ball {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: pink;
+    position: absolute;
+    left: 100px;
+    top: 100px;
+  }
+
+  #ball.ball--last {
+    left: 200px;
+    top: 200px;
+  }
+
+  button {
+    height: 32px;
+    padding: 0px 18px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(216, 216, 216);
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px;
+    color: rgb(85, 85, 85);
+    font-size: 17px;
+    outline: 0px;
+    transition: opacity 200ms ease-out 0s;
+    cursor: pointer;
+    margin: 12px;
+  }
+</style>
+
+<body>
+  <div id="ball"></div>
+  <button id="start-btn">start</button>
+  <button id="reset-btn">reset</button>
+  <script>
+    const $ = (selector, all) => {
+      return all ? document.querySelectorAll(selector) : document.querySelector(selector)
+    }
+
+    $("#reset-btn").addEventListener("click", () => {
+      $("#ball").classList.remove("ball--last")
+    })
+
+    $("#start-btn").addEventListener("click", () => {
+      // F.
+      const first = $('#ball').getBoundingClientRect()
+      // L.
+      $("#ball").classList.add("ball--last")
+      const last = $("#ball").getBoundingClientRect()
+      // I.
+      const left = first.left - last.left
+      const top = first.top - last.top
+      // P.
+      const keyframes = [
+        {
+          transform: `translate3d(${left}px, ${top}px, 0)`,
+        },
+        {
+          transform: 'translate3d(0, 0, 0)'
+        }
+      ]
+
+      $('#ball').animate(keyframes, { duration: 1000, easing: "ease-in-out" })
+    })
+  </script>
+</body>
+
+</html>

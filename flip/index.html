@@ -1,0 +1,203 @@
+<!-- https://flip-keynote.surge.sh/#/ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F.L.I.P Cards</title>
+</head>
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  .img {
+    height: 100px;
+    width: 100px;
+    margin-left: 30px;
+  }
+
+  #cards {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 360px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 12px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 10px;
+    color: rgb(85, 85, 85);
+    font-size: 22px;
+  }
+
+  button {
+    height: 32px;
+    padding: 0px 18px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(216, 216, 216);
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px;
+    color: rgb(85, 85, 85);
+    font-size: 17px;
+    outline: 0px;
+    transition: opacity 200ms ease-out 0s;
+    cursor: pointer;
+    margin: 12px;
+  }
+</style>
+
+<body>
+
+  <div class="demo">
+    <div id="cards">
+      <div class="card">
+        <h1>card - 1</h1>
+        <img class="img" />
+      </div>
+      <div class="card">
+        <h1>card - 2</h1>
+        <img class="img" />
+      </div>
+      <div class="card">
+        <h1>card - 3</h1>
+        <img class="img" />
+      </div>
+      <div class="card">
+        <h1>card - 4</h1>
+        <img class="img" />
+      </div>
+      <div class="card">
+        <h1>card - 5</h1>
+        <img class="img" />
+      </div>
+      <div class="card">
+        <h1>card - 6</h1>
+        <img class="img" />
+      </div>
+    </div>
+    <div class="actions">
+      <button id="shuffle-btn">shuffle</button>
+    </div>
+  </div>
+
+  <script>
+    let getRandomInt = (min, max) => {
+      return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+
+    // by ustbhuangyi
+    function shuffle(arr) {
+      let ret = arr.slice()
+      for (let i = 0; i < ret.length; i++) {
+        let j = getRandomInt(0, i)
+        let t = ret[i]
+        ret[i] = ret[j]
+        ret[j] = t
+      }
+      return ret
+    }
+  </script>
+  <script>
+    const $ = (selector, all) => {
+      return all ? document.querySelectorAll(selector) : document.querySelector(selector)
+    }
+
+    const imgPrefix = '//iph.href.lu/'
+    const imgURLs = [
+      `${imgPrefix}100x100`,
+      `${imgPrefix}200x200`,
+      `${imgPrefix}300x400`,
+      `${imgPrefix}400x400`,
+      `${imgPrefix}500x500`,
+      `${imgPrefix}600x600`,
+    ]
+
+    const imgRectMap = {}
+    let imgsLoaded = false
+
+    function initCards() {
+      const imgsLoadPromise = []
+      const $cards = $(".card", true)
+      function createImg(url, index) {
+        return new Promise((resolve, reject) => {
+          const $img = document.createElement("img")
+          $img.src = url
+          $img.onload = resolve
+          $img.onerror = reject
+          $cards[index].setAttribute("data-src", url)
+          $cards[index].querySelector("img").src = url
+        })
+      }
+      imgURLs.forEach((url, index) => {
+        imgsLoadPromise.push(createImg(url, index))
+      })
+      Promise.all(imgsLoadPromise).then(() => imgsLoaded = true)
+    }
+
+    function getCardRectsMap(cards) {
+      return [...cards].reduce((prev, card) => {
+        const { left, top } = card.getBoundingClientRect()
+        const src = card.getAttribute("data-src")
+        prev[src] = { left, top }
+        return prev
+      }, {})
+    }
+
+    // 初始化
+    initCards()
+
+    $("#shuffle-btn").addEventListener("click", () => {
+      if (!imgsLoaded) return
+
+      const firstCards = $(".card", true)
+      const firstRects = getCardRectsMap(firstCards)
+
+      // 乱序图片
+      const shuffleURLs = shuffle(imgURLs)
+      $(".card", true).forEach((card, index) => {
+        const src = shuffleURLs[index]
+        card.querySelector("img").src = src
+        card.setAttribute("data-src", src)
+      })
+
+      const lastCards = $(".card", true)
+      const lastRects = getCardRectsMap(lastCards)
+
+      lastCards.forEach(($card, index) => {
+        const src = $card.getAttribute("data-src")
+        // F.
+        const firstRect = firstRects[src]
+
+        // L.
+        const lastRect = lastRects[src]
+
+        // I.
+        const left = firstRect.left - lastRect.left
+        const top = firstRect.top - lastRect.top
+
+        // P.
+        const keyframes = [
+          {
+            transform: `translate3d(${left}px, ${top}px, 0)`,
+          },
+          {
+            transform: 'translate3d(0, 0, 0)'
+          }
+        ]
+
+        $card.animate(keyframes, { duration: 500, easing: "ease-in-out" })
+      })
+    })
+  </script>
+</body>
+
+</html>

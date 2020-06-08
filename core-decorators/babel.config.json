@@ -1,6 +1,9 @@
 {
-  "sourceMaps":"inline",
-  "presets": [["@babel/env"]],
+  "presets": [
+    [
+      "@babel/env"
+    ]
+  ],
   "plugins": [
     [
       "@babel/plugin-proposal-decorators",

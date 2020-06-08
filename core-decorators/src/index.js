@@ -1,25 +1,45 @@
-// const { autobind } = require('core-decorators')
+// import { autobind } from 'core-decorators'
+import autobind from './autobind'
+import memoize from './memoize'
 
-function autobind(target, key, discriptor) {
-  const { value: fn } = discriptor
-  return {
-    get() {
-      const boundFn = fn.bind(this)
-      Object.defineProperty(this, key, {
-        value: boundFn,
-      })
-      return boundFn
-    }
-  }
-}
+// // 1. memoize
+// class Person {
+//   @memoize("anotherMethod")
+//   doBigCalcFn() {
+//     return 123456789
+//   }
 
+//   anotherMethod() {
+//     return 666
+//   }
+// }
+
+// const { doBigCalcFn } = new Person()
+// console.log(doBigCalcFn())
+// console.log(doBigCalcFn())
+
+/*******************************************************************/
+
+// 2. autobind (class / method)
+@autobind
 class Person {
-  @autobind
+  // @autobind
   getInstance() {
+    return this
+  }
+
+  anotherGetInstance() {
     return this
   }
 }
 
 const person = new Person()
-const { getInstance } = person
-console.log(person === getInstance())
+const { getInstance, anotherGetInstance } = person
+const p1 = getInstance()
+const p2 = anotherGetInstance()
+console.log(person === p1) // true
+console.log(person === p2) // true
+console.log(p1 === p2) // true
+console.log(person === p1 === p2) // false why?
+
+export default Person

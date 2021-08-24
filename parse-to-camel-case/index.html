@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>parse-to-camel-case</title>
+  </head>
+  <style>
+    main {
+      width: 500px;
+    }
+    textarea {
+      width: 100%;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .btn {
+      display: inline-block;
+      margin-bottom: 0;
+      font-weight: normal;
+      text-align: center;
+      vertical-align: middle;
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+      cursor: pointer;
+      background-image: none;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      padding: 6px 12px;
+      font-size: 12px;
+      line-height: 1.42857143;
+      border-radius: 4px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    .btn-primary {
+      color: #fff;
+      background-color: #337ab7;
+      border-color: #2e6da4;
+    }
+
+    .btn-primary:focus,
+    .btn-primary.focus {
+      color: #fff;
+      background-color: #286090;
+      border-color: #122b40;
+    }
+
+    .btn-primary:hover {
+      color: #fff;
+      background-color: #286090;
+      border-color: #204d74;
+    }
+
+    .form-control {
+      display: block;
+      width: 100%;
+      /* height: 31px; */
+      padding: 6px 12px;
+      /* font-size: 12px; */
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      -webkit-transition: border-color ease-in-out 0.15s,
+        -webkit-box-shadow ease-in-out 0.15s;
+      -o-transition: border-color ease-in-out 0.15s,
+        box-shadow ease-in-out 0.15s;
+      transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    }
+
+    .form-control:focus {
+      border-color: #66afe9;
+      outline: 0;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(102, 175, 233, 0.6);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(102, 175, 233, 0.6);
+    }
+
+    .reg-tips {
+      color: darkgray;
+      font-size: 14px;
+    }
+
+    code {
+      color: #299cff;
+    }
+  </style>
+  <body>
+    <main>
+      <h3>
+        ✏️ 转换文本为驼峰形式，当前正则表达式为
+        <code id="regText">/\s(\w)/g</code>
+      </h3>
+      <p class="reg-tips">
+        🔖 在地址栏输入参数 <code>?reg=xxx</code> 可以替换正则表达式,
+        默认为全局匹配, 如需修改则需要另外加入参数 <code>flags</code>, 如
+        <code>?reg=[\s_-](\w)&flags=g</code>
+      </p>
+
+      <textarea
+        class="form-control"
+        id="input"
+        rows="5"
+        placeholder="请输入待转换文本"
+      ></textarea>
+
+      <p class="text-center">⬇</p>
+
+      <textarea
+        class="form-control"
+        id="output"
+        rows="5"
+        placeholder="这里是转换后的结果"
+      ></textarea>
+
+      <p class="text-center">
+        <button id="copy-btn" class="btn btn-primary">复制结果</button>
+      </p>
+    </main>
+  </body>
+  <script>
+    const seachQuery = new URLSearchParams(window.location.search)
+    const urlReg = seachQuery.get('reg')
+    const regFlags = seachQuery.get('flags') ?? 'g'
+    const $ = (q) => document.querySelector(q)
+    const defaultReg = urlReg ? new RegExp(urlReg, regFlags) : /[\s_-](\w)/g
+
+    window.onload = () => {
+      $('#regText').innerText = defaultReg
+      $('#copy-btn').addEventListener('click', copyText)
+
+      $('#input').addEventListener('input', toCamelCase)
+    }
+
+    function copyText() {
+      $('#output').select() // 选中文本
+      document.execCommand('copy') // 执行浏览器复制命令
+      alert('复制成功')
+    }
+
+    function toCamelCase() {
+      const origin = $('#input').value.trim()
+
+      // 将第一个字母转小写
+      const lowerCaseFirst = (origin[0]?.toLowerCase() || '') + origin.substr(1)
+      const ret = lowerCaseFirst.replace(defaultReg, (_, $1) =>
+        $1 ? $1.toUpperCase() : '',
+      )
+
+      $('#output').value = ret
+    }
+  </script>
+</html>

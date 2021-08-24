@@ -7,15 +7,37 @@
     <title>parse-to-camel-case</title>
   </head>
   <style>
-    main {
-      width: 500px;
+    * {
+      box-sizing: border-box;
     }
+
+    h3,
+    body,
+    html {
+      margin: 0;
+    }
+
+    body {
+      padding: 20px;
+      width: 600px;
+    }
+
+    main {
+      position: relative;
+    }
+
     textarea {
       width: 100%;
     }
+
+    code {
+      color: #299cff;
+    }
+
     .text-center {
       text-align: center;
     }
+
     .btn {
       display: inline-block;
       margin-bottom: 0;
@@ -37,6 +59,7 @@
       -ms-user-select: none;
       user-select: none;
     }
+
     .btn-primary {
       color: #fff;
       background-color: #337ab7;
@@ -91,12 +114,26 @@
       font-size: 14px;
     }
 
-    code {
-      color: #299cff;
+    .tips-copy-success {
+      position: absolute;
+      top: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 0.5s ease;
+    }
+
+    .tips-copy-success--show {
+      top: 0;
+      transition: all 0.5s ease;
     }
   </style>
   <body>
     <main>
+      <div class="tips-copy-success text-center">复制成功 ✔️</div>
       <h3>
         ✏️ 转换文本为驼峰形式，当前正则表达式为
         <code id="regText">/\s(\w)/g</code>
@@ -125,27 +162,39 @@
 
       <p class="text-center">
         <button id="copy-btn" class="btn btn-primary">复制结果</button>
+        <span></span>
       </p>
     </main>
   </body>
   <script>
+    const $ = (q) => document.querySelector(q)
+
     const seachQuery = new URLSearchParams(window.location.search)
     const urlReg = seachQuery.get('reg')
     const regFlags = seachQuery.get('flags') ?? 'g'
-    const $ = (q) => document.querySelector(q)
     const defaultReg = urlReg ? new RegExp(urlReg, regFlags) : /[\s_-](\w)/g
 
     window.onload = () => {
       $('#regText').innerText = defaultReg
       $('#copy-btn').addEventListener('click', copyText)
-
       $('#input').addEventListener('input', toCamelCase)
     }
 
     function copyText() {
       $('#output').select() // 选中文本
-      document.execCommand('copy') // 执行浏览器复制命令
-      alert('复制成功')
+
+      if ($('#output').value.trim()) {
+        document.execCommand('copy') // 执行浏览器复制命令
+
+        showSuccess()
+      }
+    }
+
+    function showSuccess() {
+      $('.tips-copy-success').classList.add('tips-copy-success--show')
+      setTimeout(() => {
+        $('.tips-copy-success').classList.remove('tips-copy-success--show')
+      }, 2000)
     }
 
     function toCamelCase() {

@@ -161,8 +161,8 @@
       ></textarea>
 
       <p class="text-center">
-        <button id="copy-btn" class="btn btn-primary">复制结果</button>
-        <span></span>
+        <button id="copy-input-btn" class="btn btn-primary">复制输入</button>
+        <button id="copy-output-btn" class="btn btn-primary">复制结果</button>
       </p>
     </main>
   </body>
@@ -176,18 +176,27 @@
 
     window.onload = () => {
       $('#regText').innerText = defaultReg
-      $('#copy-btn').addEventListener('click', copyText)
+      $('#copy-output-btn').addEventListener('click', copyOutputText)
+      $('#copy-input-btn').addEventListener('click', copyInputText)
       $('#input').addEventListener('input', toCamelCase)
     }
 
-    function copyText() {
-      $('#output').select() // 选中文本
+    function copyText(inputEl) {
+      inputEl.select() // 选中文本
 
-      if ($('#output').value.trim()) {
+      if (inputEl.value.trim()) {
         document.execCommand('copy') // 执行浏览器复制命令
 
         showSuccess()
       }
+    }
+
+    function copyInputText() {
+      copyText($('#input'))
+    }
+
+    function copyOutputText() {
+      copyText($('#output'))
     }
 
     function showSuccess() {

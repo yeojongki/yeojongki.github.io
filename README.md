@@ -6,7 +6,8 @@
   - [布局 两列定宽自适应 圣杯布局等](https://yeojongki.github.io/css/css-layout.html)
   - [纯 CSS 实现波浪悬浮球](https://yeojongki.github.io/css/wave.html)
   - [按钮特效](https://yeojongki.github.io/css/button.html)
-
+  - [纯 CSS 实现多行展开收起自动隐藏](https://yeojongki.github.io/css/text-hide-multile-line.html)
+  
 - JS
   - [图片懒加载](https://yeojongki.github.io/img-lazyload/)
   - [F.L.I.P](https://yeojongki.github.io/flip/) - 利用 Web Animations 实现

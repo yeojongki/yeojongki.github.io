@@ -135,13 +135,20 @@
     <main>
       <div class="tips-copy-success text-center">复制成功 ✔️</div>
       <h3>
-        ✏️ 转换文本为驼峰形式，当前正则表达式为
+        ✏️ 转换文本为驼峰形式，当前替换的正则表达式为
         <code id="regText">/\s(\w)/g</code>
       </h3>
       <p class="reg-tips">
-        🔖 在地址栏输入参数 <code>?reg=xxx</code> 可以替换正则表达式,
-        默认为全局匹配, 如需修改则需要另外加入参数 <code>flags</code>, 如
-        <code>?reg=[\s_-](\w)&flags=g</code>
+        🔖 1. 在地址栏输入参数 <code>?reg=xxx</code> 可以替换默认的正则表达式
+      </p>
+      <p class="reg-tips">
+        🔖 2. 默认为全局匹配, 如需修改则需要另外加入参数 <code>flags</code>, 如
+        <code>?flags=g</code>
+      </p>
+      <p class="reg-tips">
+        🔖 3. 默认会将单词中的单引号转为空字符串 <code>(don't -> dont)</code>,
+        如不需要可在地址栏中输入参数 <code>?singleQuote=1</code> 或者简写
+        <code>?sq=1</code> 取消该规则
       </p>
 
       <textarea
@@ -171,11 +178,13 @@
 
     const seachQuery = new URLSearchParams(window.location.search)
     const urlReg = seachQuery.get('reg')
+    const dontReplaceSingleQuote =
+      seachQuery.get('singleQuote') || seachQuery.get('sq')
     const regFlags = seachQuery.get('flags') ?? 'g'
-    const defaultReg = urlReg ? new RegExp(urlReg, regFlags) : /[\s_-](\w)/g
+    const replaceReg = urlReg ? new RegExp(urlReg, regFlags) : /[\s_-](\w)/g
 
     window.onload = () => {
-      $('#regText').innerText = defaultReg
+      $('#regText').innerText = replaceReg
       $('#copy-output-btn').addEventListener('click', copyOutputText)
       $('#copy-input-btn').addEventListener('click', copyInputText)
       $('#input').addEventListener('input', toCamelCase)
@@ -211,11 +220,15 @@
 
       // 将第一个字母转小写
       const lowerCaseFirst = (origin[0]?.toLowerCase() || '') + origin.substr(1)
-      const ret = lowerCaseFirst.replace(defaultReg, (_, $1) =>
+      let result = lowerCaseFirst.replace(replaceReg, (_, $1) =>
         $1 ? $1.toUpperCase() : '',
       )
 
-      $('#output').value = ret
+      if (!dontReplaceSingleQuote) {
+        result = result.replace(/\'/g, '')
+      }
+
+      $('#output').value = result
     }
   </script>
 </html>
